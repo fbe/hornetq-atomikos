@@ -49,6 +49,8 @@ public class TestHornetQConfiguration extends ConfigurationImpl {
 	}
 	
 	private TestHornetQConfiguration(){
+
+		
 		
 		setPersistenceEnabled(false);
 		setSecurityEnabled(false);
@@ -63,10 +65,6 @@ public class TestHornetQConfiguration extends ConfigurationImpl {
 		
 		String random = UUID.randomUUID().toString();
 		
-		setJournalDirectory("/tmp/hornetq/" + random + "/journal/");
-		setBindingsDirectory("/tmp/hornetq/" + random + "/bindings/");
-		setPagingDirectory("/tmp/hornetq/" + random + "/pagings/");
-		LOGGER.info("Using temp directory /tmp/hornetq/" + random + "/ for journal and bindings");
 		
 		// don't use AIO here because it requires libaio on Linux and we can't assume
 		// that it's installed in production
