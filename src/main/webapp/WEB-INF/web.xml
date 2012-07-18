@@ -5,6 +5,6 @@
 <web-app>
   <display-name>hornetq server</display-name>
   <listener>
-  	<listener-class>name.felixbecker.hornetq.HornetQStartupListener</listener-class>
+  	<listener-class>name.felixbecker.hornetq.listener.HornetQStartupListener</listener-class>
   </listener>
 </web-app>

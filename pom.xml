@@ -8,29 +8,6 @@
 	<name>hornetq webapp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-<!-- 
-
-
-	<param key="host" value="${hornetq.twinCluster.twinHost}" />
-			<param key="port" value="${hornetq.twinCluster.twinPort}" />
-		</connector>
-	</connectors>
-
-	<acceptors>
-		<acceptor name="in-vm">
-			<factory-class>org.hornetq.core.remoting.impl.invm.InVMAcceptorFactory</factory-class>
-		</acceptor>
-		<acceptor name="netty">
-			<factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
-			<param key="host" value="${hornetq.twinCluster.localHostname}" />
-			<param key="port" value="${hornetq.twinCluster.localPort}" />
-
-
-
-
- -->
-
-
 	<profiles>
 		<profile>
 			<id>hornetq1</id>
@@ -68,6 +45,7 @@
 	</profiles>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -97,6 +75,11 @@
 			<version>1.2.17</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>20040616</version>
+		</dependency>
 	</dependencies>
 
 	<build>
