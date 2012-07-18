@@ -80,14 +80,6 @@ public class TestHornetQConfiguration extends ConfigurationImpl {
 		getAcceptorConfigurations().add(acceptorConfig);
 		getAcceptorConfigurations().add(new TransportConfiguration(InVMAcceptorFactory.class.getName()));
 
-		// unused till we have another node, then we need to know how to connect to it.
-//		TransportConfiguration connectorConfig = new TransportConfiguration(NettyConnectorFactory.class.getName(), params);
-//		getConnectorConfigurations().put("netty", connectorConfig);
-		
-		LOGGER.info("Connectors: ");
-		for (TransportConfiguration acceptorConfiguration : getAcceptorConfigurations()) {
-			LOGGER.info("connectorConfiguration " + acceptorConfiguration.getName() + ": " + acceptorConfiguration);
-		}
 	}
 	
 	private void initCluster(){

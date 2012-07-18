@@ -8,6 +8,29 @@
 	<name>hornetq webapp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+<!-- 
+
+
+	<param key="host" value="${hornetq.twinCluster.twinHost}" />
+			<param key="port" value="${hornetq.twinCluster.twinPort}" />
+		</connector>
+	</connectors>
+
+	<acceptors>
+		<acceptor name="in-vm">
+			<factory-class>org.hornetq.core.remoting.impl.invm.InVMAcceptorFactory</factory-class>
+		</acceptor>
+		<acceptor name="netty">
+			<factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
+			<param key="host" value="${hornetq.twinCluster.localHostname}" />
+			<param key="port" value="${hornetq.twinCluster.localPort}" />
+
+
+
+
+ -->
+
+
 	<profiles>
 		<profile>
 			<id>hornetq1</id>
@@ -19,6 +42,10 @@
 			</activation>
 			<properties>
 				<tomcat.manager.url>http://hornetq1:8080/manager/html/</tomcat.manager.url>
+				<hornetq.twinCluster.twinHost>hornetq2</hornetq.twinCluster.twinHost>
+				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.localHostname>0.0.0.0</hornetq.twinCluster.localHostname>
+				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
 			</properties>
 		</profile>
 
@@ -32,6 +59,10 @@
 			</activation>
 			<properties>
 				<tomcat.manager.url>http://hornetq2:8080/manager/html/</tomcat.manager.url>
+				<hornetq.twinCluster.twinHost>hornetq1</hornetq.twinCluster.twinHost>
+				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.localHostname>0.0.0.0</hornetq.twinCluster.localHostname>
+				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
 			</properties>
 		</profile>
 	</profiles>
@@ -70,6 +101,13 @@
 
 	<build>
 		<finalName>hornetq1webapp</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 
 		<plugins>
 			<plugin>
