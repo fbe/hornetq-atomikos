@@ -22,7 +22,7 @@
 				<hornetq.twinCluster.twinHost>hornetq2</hornetq.twinCluster.twinHost>
 				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
 				<hornetq.twinCluster.localHostname>0.0.0.0</hornetq.twinCluster.localHostname>
-				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
+				<hornetq.twinCluster.localPort>5446</hornetq.twinCluster.localPort>
 			</properties>
 		</profile>
 
@@ -37,7 +37,7 @@
 			<properties>
 				<tomcat.manager.url>http://hornetq2:8080/manager/html/</tomcat.manager.url>
 				<hornetq.twinCluster.twinHost>hornetq1</hornetq.twinCluster.twinHost>
-				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.twinPort>5446</hornetq.twinCluster.twinPort>
 				<hornetq.twinCluster.localHostname>0.0.0.0</hornetq.twinCluster.localHostname>
 				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
 			</properties>

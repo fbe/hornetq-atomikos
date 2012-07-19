@@ -33,6 +33,8 @@ public class HornetQStartupListener implements ServletContextListener {
 	private HornetQServer hornetQInstance;
 
 	private ClientSessionFactory clientSessionFactory;
+	
+	private ClientSession consumerSession;
 
 	private Collection<MessageProducingRunnable> messageProducer = new ArrayList<MessageProducingRunnable>();
 	
@@ -69,18 +71,19 @@ public class HornetQStartupListener implements ServletContextListener {
 
 
 	private ClientSession addConsumer(ClientSessionFactory sf) throws Exception {
-		 
+		
 		final ClientSession session = sf.createSession();
         
 	 	session.start();
         
-	 	String queueName = UUID.randomUUID().toString();
-	 	
-	 	LOGGER.info("created consumer queue " + queueName + " at address " + TestConstants.TEST_ADDRESS);
-	 	
-		session.createQueue(TestConstants.TEST_ADDRESS, queueName);
-	 	
-        final ClientConsumer messageConsumer = session.createConsumer(queueName);
+	 	boolean queueExists = session.queueQuery(new SimpleString(TestConstants.TEST_QUEUE_NAME)).isExists();
+		
+	 	if(!queueExists){
+	 		session.close();
+	 		throw new RuntimeException("Queue " + TestConstants.TEST_QUEUE_NAME + " not found! Not creating consumer.");
+		}
+		
+        final ClientConsumer messageConsumer = session.createConsumer(TestConstants.TEST_QUEUE_NAME);
         messageConsumer.setMessageHandler(new MessageHandler() {
 
 			public void onMessage(ClientMessage message) {
@@ -108,8 +111,7 @@ public class HornetQStartupListener implements ServletContextListener {
 
 		new Thread(messageProducingRunnable).start();
 		
-		addConsumer(clientSessionFactory).close();
-		// FIXME close session on shutdown!
+		consumerSession = addConsumer(clientSessionFactory);
 	}
 
 	public void contextDestroyed(ServletContextEvent sce) {
@@ -124,6 +126,8 @@ public class HornetQStartupListener implements ServletContextListener {
 			}
 			
 			Thread.sleep(2000); // MPR have sleep times of 1000ms, wait here to ensure they are shutdown // TODO arno brauch ich das?
+			
+			consumerSession.stop();
 			
 			clientSessionFactory.close();
 			

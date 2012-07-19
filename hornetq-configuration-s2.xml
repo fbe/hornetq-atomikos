@@ -19,14 +19,14 @@
 		<connector name="twinConnector">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory
 			</factory-class>
-			<param key="host" value="${hornetq.twinCluster.twinHost}" />
-			<param key="port" value="${hornetq.twinCluster.twinPort}" />
+			<param key="host" value="hornetq1" />
+			<param key="port" value="5446" />
 		</connector>
 		
 		<connector name="netty-connector">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
-			<param key="host" value="${hornetq.twinCluster.localHostname}" />
-			<param key="port" value="${hornetq.twinCluster.localPort}" />
+			<param key="host" value="0.0.0.0" />
+			<param key="port" value="5445" />
 		</connector>
 	</connectors>
 
@@ -36,8 +36,8 @@
 		</acceptor>
 		<acceptor name="netty-acceptor">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
-			<param key="host" value="${hornetq.twinCluster.localHostname}" />
-			<param key="port" value="${hornetq.twinCluster.localPort}" />
+			<param key="host" value="0.0.0.0" />
+			<param key="port" value="5445" />
 		</acceptor>
 	</acceptors>
 
