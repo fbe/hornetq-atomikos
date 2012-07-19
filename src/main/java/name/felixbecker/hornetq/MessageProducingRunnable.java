@@ -32,18 +32,18 @@ public class MessageProducingRunnable implements Runnable {
 				final ClientSession session = clientSessionFactory.createSession(false, false); // no auto commit, no auto ack
 				ClientProducer producer = session.createProducer(TestConstants.TEST_ADDRESS);
 				
-				for(int i = 0; i < 100; i++){
-					final ClientMessage message = session.createMessage(true);
+				final ClientMessage message = session.createMessage(true);
 					
-					String hostname = InetAddress.getLocalHost().getHostName();
+				String hostname = InetAddress.getLocalHost().getHostName();
 					
-					message.putStringProperty(TestConstants.TEST_MESSAGE_PROPERTY, "Message from " + hostname); 
+				message.putStringProperty(TestConstants.TEST_MESSAGE_PROPERTY, "Message from " + hostname); 
 					
-					producer.send(message);
+				producer.send(message);
 					
-					session.commit();
-				}
+				session.commit();
+
 				producer.close();
+				
 				session.close();
 				
 				Thread.sleep(1000);

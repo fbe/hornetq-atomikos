@@ -45,21 +45,23 @@
 
 	<clustered>true</clustered>
 
+
+
+   <!-- Clustering configuration -->
+
 	<cluster-connections>
 		<cluster-connection name="twinCluster">
 			<address>testAddress</address>
 			<connector-ref>netty-connector</connector-ref>
 			<retry-interval>500</retry-interval>
 			<use-duplicate-detection>true</use-duplicate-detection>
-
-			<forward-when-no-consumers>true</forward-when-no-consumers>
 			<max-hops>1</max-hops>
 			<static-connectors>
 				<connector-ref>twinConnector</connector-ref>
 			</static-connectors>
 		</cluster-connection>
 	</cluster-connections>
-	
+
 	<!-- fixed queues -->
 	<queues>
 		<queue name="testQueue">
