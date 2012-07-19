@@ -2,7 +2,6 @@ package name.felixbecker.hornetq.listener;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.UUID;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -37,28 +36,23 @@ public class HornetQStartupListener implements ServletContextListener {
 	private ClientSession consumerSession;
 
 	private Collection<MessageProducingRunnable> messageProducer = new ArrayList<MessageProducingRunnable>();
+
+	private ServerLocator serverLocator;
 	
 	public void contextInitialized(ServletContextEvent sce) {
 		
 		LOGGER.info("loading hornetq configuration from hornetq-configuration.xml!");
 		FileConfiguration fileConfiguration = new FileConfiguration();
 		fileConfiguration.setConfigurationUrl("hornetq-configuration.xml");
-
 		try {
 			fileConfiguration.start();
 		} catch (Exception e) {
 			throw new RuntimeException("failed to load hornetq-configuration.xml", e);
 		}
-
-		String random = UUID.randomUUID().toString();
-		LOGGER.info("Overriding possibly configured journal, bindings and paging directory. Using temp directory /tmp/hornetq/" + random + "/");
-		fileConfiguration.setJournalDirectory("/tmp/hornetq/" + random + "/journal/");
-		fileConfiguration.setBindingsDirectory("/tmp/hornetq/" + random + "/bindings/");
-		fileConfiguration.setPagingDirectory("/tmp/hornetq/" + random + "/pagings/");
 		
 		LOGGER.info("starting up hornetq");
 		hornetQInstance = HornetQServers.newHornetQServer(fileConfiguration);
-		
+
 		try {
 			hornetQInstance.start();
 			startMessageProducerAndConsumer();
@@ -70,9 +64,9 @@ public class HornetQStartupListener implements ServletContextListener {
 	}
 
 
-	private ClientSession addConsumer(ClientSessionFactory sf) throws Exception {
-		
-		final ClientSession session = sf.createSession();
+	private ClientSession addConsumer(ClientSessionFactory sessionFactory) throws Exception {
+
+		final ClientSession session = sessionFactory.createSession();
         
 	 	session.start();
         
@@ -103,13 +97,21 @@ public class HornetQStartupListener implements ServletContextListener {
 
 	private void startMessageProducerAndConsumer() throws Exception {
 		
-		ServerLocator serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
-		clientSessionFactory = serverLocator.createSessionFactory();
+		serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
+		// don't use global pools, they cause memory leaks.
+		// but this doesn't seem to work too
+		serverLocator.setUseGlobalPools(false);
+		serverLocator.setScheduledThreadPoolMaxSize(50);
+		serverLocator.setThreadPoolMaxSize(-1);  
 		
-		MessageProducingRunnable messageProducingRunnable = new MessageProducingRunnable(clientSessionFactory);
-		messageProducer.add(messageProducingRunnable);
+		clientSessionFactory = serverLocator.createSessionFactory();
 
-		new Thread(messageProducingRunnable).start();
+		for(int i = 0; i < 200; i++){
+			MessageProducingRunnable messageProducingRunnable = new MessageProducingRunnable(clientSessionFactory);
+			messageProducer.add(messageProducingRunnable);
+	
+			new Thread(messageProducingRunnable).start();
+		}
 		
 		consumerSession = addConsumer(clientSessionFactory);
 	}
@@ -129,7 +131,13 @@ public class HornetQStartupListener implements ServletContextListener {
 			
 			consumerSession.stop();
 			
+			Thread.sleep(2000);
+			
 			clientSessionFactory.close();
+			Thread.sleep(2000);
+			
+			serverLocator.close();
+			Thread.sleep(2000);
 			
 			hornetQInstance.stop();
 		} catch (Exception e) {

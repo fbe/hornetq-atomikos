@@ -18,7 +18,7 @@ public class MessageProducingRunnable implements Runnable {
 	
 	private volatile boolean shutdown = false;
 	
-	private int counter = 0;
+	private static int counter = 0;
 	
 	public MessageProducingRunnable(ClientSessionFactory clientSessionFactory) {
 		this.clientSessionFactory = clientSessionFactory;
@@ -28,6 +28,10 @@ public class MessageProducingRunnable implements Runnable {
 
 		while(!shutdown){
 			try {
+				
+				if(counter % 10000l == 0){
+					LOGGER.info("sent 1000 more messages. message count: " + counter);
+				}
 				
 				LOGGER.debug("Sending message to horny hornet queue");
 				
@@ -48,11 +52,13 @@ public class MessageProducingRunnable implements Runnable {
 				
 				session.close();
 				
-				counter++;
+				synchronized(this){
+					counter++;
+				}
 				
-				Thread.sleep(1000);
-			} catch(InterruptedException e){
-				LOGGER.error("did you forget to shutdown this runnable in your context destroyed listener?", e);
+//				Thread.sleep(1000);
+//			} catch(InterruptedException e){
+//				LOGGER.error("did you forget to shutdown this runnable in your context destroyed listener?", e);
 			} catch (HornetQException e) {
 				LOGGER.error("Failed to send message to hornetq!", e);
 			} catch (UnknownHostException e) {

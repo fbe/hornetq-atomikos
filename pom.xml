@@ -2,10 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>name.felixbecker</groupId>
-	<artifactId>hornetq1webapp</artifactId>
+	<artifactId>hornetq-webapp</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hornetq webapp Maven Webapp</name>
+	<name>hornetq</name>
+
 	<url>http://maven.apache.org</url>
 
 	<profiles>
@@ -23,6 +24,7 @@
 				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
 				<hornetq.twinCluster.localHostname>192.168.56.11</hornetq.twinCluster.localHostname>
 				<hornetq.twinCluster.localPort>5446</hornetq.twinCluster.localPort>
+				<tomcat.deployment.path>/hornetq</tomcat.deployment.path>
 			</properties>
 		</profile>
 
@@ -40,8 +42,51 @@
 				<hornetq.twinCluster.twinPort>5446</hornetq.twinCluster.twinPort>
 				<hornetq.twinCluster.localHostname>192.168.56.12</hornetq.twinCluster.localHostname>
 				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
+				<tomcat.deployment.path>/hornetq</tomcat.deployment.path>
 			</properties>
 		</profile>
+
+
+
+		<!-- laptop -->
+
+
+		<profile>
+			<id>laptop-fedora-1</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>laptop-fedora-1</value>
+				</property>
+			</activation>
+			<properties>
+				<tomcat.manager.url>http://127.0.0.1:8080/manager/html/</tomcat.manager.url>
+				<hornetq.twinCluster.twinHost>127.0.0.1</hornetq.twinCluster.twinHost>
+				<hornetq.twinCluster.twinPort>5445</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.localHostname>127.0.0.1</hornetq.twinCluster.localHostname>
+				<hornetq.twinCluster.localPort>5446</hornetq.twinCluster.localPort>
+				<tomcat.deployment.path>/hornetq1</tomcat.deployment.path>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>laptop-fedora-2</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>laptop-fedora-2</value>
+				</property>
+			</activation>
+			<properties>
+				<tomcat.manager.url>http://127.0.0.1:8080/manager/html/</tomcat.manager.url>
+				<hornetq.twinCluster.twinHost>127.0.0.1</hornetq.twinCluster.twinHost>
+				<hornetq.twinCluster.twinPort>5446</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.localHostname>127.0.0.1</hornetq.twinCluster.localHostname>
+				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
+				<tomcat.deployment.path>/hornetq2</tomcat.deployment.path>
+			</properties>
+		</profile>
+
 	</profiles>
 
 	<dependencies>
@@ -104,7 +149,7 @@
 				<version>1.1</version>
 				<configuration>
 					<url>${tomcat.manager.url}</url>
-					<path>/hornetq</path>
+					<path>${tomcat.deployment.path}</path>
 					<username>manager</username>
 					<password>manager</password>
 				</configuration>

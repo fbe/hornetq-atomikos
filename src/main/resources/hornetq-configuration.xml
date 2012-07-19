@@ -6,6 +6,7 @@
 	<!-- persistence and journal settings -->
 	
 	<persistence-enabled>false</persistence-enabled>
+
 	<!-- TODO test with async io and tx commit for each message -->
 	<journal-type>NIO</journal-type>
 
@@ -44,8 +45,6 @@
 	<!-- cluster -->
 
 	<clustered>true</clustered>
-
-
 
    <!-- Clustering configuration -->
 
