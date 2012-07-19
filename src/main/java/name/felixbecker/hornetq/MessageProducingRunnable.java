@@ -18,6 +18,8 @@ public class MessageProducingRunnable implements Runnable {
 	
 	private volatile boolean shutdown = false;
 	
+	private int counter = 0;
+	
 	public MessageProducingRunnable(ClientSessionFactory clientSessionFactory) {
 		this.clientSessionFactory = clientSessionFactory;
 	}
@@ -36,7 +38,7 @@ public class MessageProducingRunnable implements Runnable {
 					
 				String hostname = InetAddress.getLocalHost().getHostName();
 					
-				message.putStringProperty(TestConstants.TEST_MESSAGE_PROPERTY, "Message from " + hostname); 
+				message.putStringProperty(TestConstants.TEST_MESSAGE_PROPERTY, "Message from " + hostname + ", msg number " + counter); 
 					
 				producer.send(message);
 					
@@ -45,6 +47,8 @@ public class MessageProducingRunnable implements Runnable {
 				producer.close();
 				
 				session.close();
+				
+				counter++;
 				
 				Thread.sleep(1000);
 			} catch(InterruptedException e){
