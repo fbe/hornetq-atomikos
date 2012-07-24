@@ -106,12 +106,10 @@ public class HornetQStartupListener implements ServletContextListener {
 		
 		clientSessionFactory = serverLocator.createSessionFactory();
 
-		for(int i = 0; i < 200; i++){
-			MessageProducingRunnable messageProducingRunnable = new MessageProducingRunnable(clientSessionFactory);
-			messageProducer.add(messageProducingRunnable);
-	
-			new Thread(messageProducingRunnable).start();
-		}
+		MessageProducingRunnable messageProducingRunnable = new MessageProducingRunnable(clientSessionFactory);
+		messageProducer.add(messageProducingRunnable);
+		new Thread(messageProducingRunnable).start();
+		
 		
 		consumerSession = addConsumer(clientSessionFactory);
 	}

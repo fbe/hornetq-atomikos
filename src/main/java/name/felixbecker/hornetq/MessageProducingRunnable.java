@@ -30,7 +30,7 @@ public class MessageProducingRunnable implements Runnable {
 			try {
 				
 				if(counter % 10000l == 0){
-					LOGGER.info("sent 1000 more messages. message count: " + counter);
+					LOGGER.info("sent 10000 more messages. message count: " + counter);
 				}
 				
 				LOGGER.debug("Sending message to horny hornet queue");
@@ -56,9 +56,9 @@ public class MessageProducingRunnable implements Runnable {
 					counter++;
 				}
 				
-//				Thread.sleep(1000);
-//			} catch(InterruptedException e){
-//				LOGGER.error("did you forget to shutdown this runnable in your context destroyed listener?", e);
+				Thread.sleep(1000);
+			} catch(InterruptedException e){
+				LOGGER.error("did you forget to shutdown this runnable in your context destroyed listener?", e);
 			} catch (HornetQException e) {
 				LOGGER.error("Failed to send message to hornetq!", e);
 			} catch (UnknownHostException e) {
