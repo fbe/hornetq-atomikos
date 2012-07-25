@@ -30,5 +30,43 @@
 		<property name="userTransaction" ref="AtomikosUserTransaction" /> 
 	</bean> 
  
+	<bean id="datasource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
+		<property name="uniqueResourceName">
+			<value>h2XA</value>
+		</property>
+		<property name="xaDataSourceClassName">
+			<value>org.h2.jdbcx.JdbcDataSource</value>
+		</property>
+		<property name="xaProperties">
+			<props>
+				<prop key="user">sa</prop>
+				<prop key="password"></prop>
+				<prop key="URL">jdbc:h2:mem:test;LOCK_MODE=1;MVCC=TRUE;DB_CLOSE_DELAY=-1</prop>                
+			</props>
+		</property>
+		<property name="minPoolSize">
+			<value>10</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>300</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="jtaTransactionManager" ref="JtaTransactionManager" />
+		<property name="annotatedClasses">
+			<list>
+				<value>name.felixbecker.hornetq.entities.SampleEntity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+		<value>
+			hibernate.dialect=org.hibernate.dialect.H2Dialect
+			hibernate.hbm2ddl.auto=create
+		</value>
+		</property>
+	</bean>
 	
 </beans>

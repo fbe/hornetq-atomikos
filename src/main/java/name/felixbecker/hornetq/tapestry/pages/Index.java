@@ -41,6 +41,14 @@ public class Index {
 		stop = false;
 	}
 	
+	void onActionFromSaveSampleEntityLink(){
+		hornetQService.performHibernateSave();
+	}
+	
+	void onActionFromLookupSessionLink(){
+		hornetQService.performHibernateSessionLookup();
+	}
+	
 	public boolean getHornetQInstanceRunning(){
 		return hornetQService.isHornetQRunning();
 	}

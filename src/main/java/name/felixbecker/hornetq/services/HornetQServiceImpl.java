@@ -1,13 +1,19 @@
 package name.felixbecker.hornetq.services;
 
+import name.felixbecker.hornetq.entities.SampleEntity;
+
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 import org.hornetq.core.config.impl.FileConfiguration;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 class HornetQServiceImpl implements HornetQService {
+	
+	@Autowired private SessionFactory sessionFactory;
 	
 	private static final Logger LOGGER = Logger.getLogger(HornetQServers.class); 
 	
@@ -49,10 +55,24 @@ class HornetQServiceImpl implements HornetQService {
 	}
 	
 	public boolean isHornetQRunning(){
+
 		return hornetQInstance != null && hornetQInstance.isStarted();
 	}
 	
 	public FileConfiguration getActiveConfiguration(){
 		return fileConfiguration;
 	}
+
+	@Override
+	public void performHibernateSave() {
+		LOGGER.info("Current session TX: " + sessionFactory.getCurrentSession().getTransaction());
+		sessionFactory.getCurrentSession().save(new SampleEntity());
+	}
+
+	@Override
+	public void performHibernateSessionLookup() {
+		LOGGER.info("Current session TX: " + sessionFactory.getCurrentSession());
+	}
+	
+	
 }

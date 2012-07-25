@@ -9,4 +9,6 @@ public interface HornetQService {
 	public void stopServer() throws Exception;
 	public boolean isHornetQRunning();
 	public FileConfiguration getActiveConfiguration();
+	public void performHibernateSave();
+	public void performHibernateSessionLookup();
 }
