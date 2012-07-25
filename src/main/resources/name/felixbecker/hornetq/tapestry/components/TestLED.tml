@@ -1,0 +1,9 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+	
+	${label}: <t:if test="test">
+		<img src="img/on.png" />
+		<p:else>
+			<img src="img/off.png" />
+		</p:else>
+	</t:if>
+</t:container>

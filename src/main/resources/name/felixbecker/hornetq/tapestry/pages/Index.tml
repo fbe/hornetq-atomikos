@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-<h1>hi fsdoo</h1>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<head>
+		<title>HornetQ-Samples</title>
+	</head>
+	<body style="width:900px; margin:auto; border: 1px dotted grey; padding:20px;">
+
+		<h1>HornetQ-Example</h1>
+		
+		<t:alerts />
+
+		<t:zone t:id="formZone">
+			
+			<p>
+				<t:testLED label="HornetQ-Instance" test="hornetQInstanceRunning"/>
+			</p>
+	
+			<t:form t:id="startHornetQForm" t:zone="formZone" style="border: 1px solid black">
+				<t:errors />
+				Configuration:
+				<t:select t:id="configName" validate="required" model="literal:hornetq1-configuration.xml,hornetq2-configuration.xml"/>
+				<t:submit value="hornetQ starten!" t:id="startServer" />
+				<t:submit value="hornetQ stoppen!" t:id="stopServer" />
+			</t:form>
+		</t:zone>
+	</body>
 </html>
