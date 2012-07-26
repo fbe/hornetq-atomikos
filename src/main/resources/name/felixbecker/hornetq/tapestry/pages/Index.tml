@@ -13,10 +13,17 @@
 
 		<t:zone t:id="formZone">
 			
+			<t:form t:id="sendMessageForm" t:zone="formZone" style="border: 1px dotted grey">
+				<ul>
+					<li><t:textfield t:id="queueName" value="queueName" validate="required" /></li>		
+					<li><t:textfield t:id="message" value="message" validate="required" /></li>		
+					<li><t:submit value="Message an Queue senden!" t:id="sendMessageToQueue" /></li>
+				</ul>
+			</t:form>
 			<ul>
 				<li><t:actionlink t:id="saveSampleEntityLink">Save new SampleEntity</t:actionlink></li>
 				<li><t:actionlink t:id="lookupSessionLink">only lookup session!</t:actionlink></li>
-				<li><t:actionlink t:id="triggerHornetQ">Trigger hornetq</t:actionlink></li>
+	
 			
 			</ul>
 			

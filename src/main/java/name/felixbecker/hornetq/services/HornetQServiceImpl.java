@@ -1,5 +1,7 @@
 package name.felixbecker.hornetq.services;
 
+import javax.management.MBeanServer;
+
 import name.felixbecker.hornetq.entities.SampleEntity;
 
 import org.apache.log4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 class HornetQServiceImpl implements HornetQService {
 	
 	@Autowired private SessionFactory sessionFactory;
+	@Autowired private MBeanServer mbeanServer;
 	
 	private static final Logger LOGGER = Logger.getLogger(HornetQServers.class); 
 	
@@ -31,7 +34,6 @@ class HornetQServiceImpl implements HornetQService {
 			
 			fileConfiguration = new FileConfiguration();
 			fileConfiguration.setConfigurationUrl(configurationName);
-
 			try {
 				fileConfiguration.start();
 			} catch (Exception e) {
@@ -41,7 +43,6 @@ class HornetQServiceImpl implements HornetQService {
 			LOGGER.info("starting up hornetq");
 			hornetQInstance = HornetQServers.newHornetQServer(fileConfiguration);
 			hornetQInstance.start();
-			hornetQInstance.createQueue(new SimpleString("foo"), new SimpleString("foo"), null, true, true);
 		} else {
 			throw new RuntimeException("HornetQ instance already exists!");
 		}

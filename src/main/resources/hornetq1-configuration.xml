@@ -62,14 +62,14 @@
 	</cluster-connections>
 
 	<!-- fixed queues -->
-	<!-- 
-	<queues>
-		<queue name="jms.testQueue">
-			<address>testQueue</address>
+
+	<!-- <queues>
+		<queue name="jms.queue.testQueue">
+			<address>jms.queue.testQueue</address>
 			<durable>true</durable>
 		</queue>
-	</queues>
- 	-->
+	</queues> -->
+
 	<security-settings>
 		<security-setting match="#">
 			<permission type="createDurableQueue" roles="guest" />

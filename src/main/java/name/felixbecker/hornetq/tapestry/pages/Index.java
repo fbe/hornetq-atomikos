@@ -8,6 +8,7 @@ import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
 import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
@@ -24,9 +25,6 @@ public class Index {
 	@Inject HornetQTestService hornetQTestService;
 	
 	@Inject
-	Messages messages;
-	
-	@Inject
 	AlertManager alertManager;
 
 	@InjectComponent
@@ -34,6 +32,14 @@ public class Index {
 	
 	@Property
 	String configName;
+	
+	@Property
+	@Persist
+	String queueName;
+	
+	@Property
+	@Persist
+	String message;
 	
 	private boolean stop;
 	
@@ -44,8 +50,13 @@ public class Index {
 		stop = false;
 	}
 
-	void onActionFromTriggerHornetQ(){
-		hornetQTestService.doHornetQStuffUhYeah();
+	void onSuccessFromSendMessageForm(){
+		try {
+			hornetQTestService.sendMessage(message, queueName);
+		} catch(Exception e){
+			LOGGER.info("Sending failed", e);
+			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());
+		}
 	}
 	
 	void onActionFromSaveSampleEntityLink(){

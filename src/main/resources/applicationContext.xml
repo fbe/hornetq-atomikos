@@ -10,7 +10,7 @@
     ">
 
 	<context:component-scan base-package="name.felixbecker.hornetq" />
-
+  
 	<tx:annotation-driven transaction-manager="JtaTransactionManager" />
 
 	<bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"

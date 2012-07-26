@@ -1,14 +1,10 @@
 package name.felixbecker.hornetq;
 
-import javax.jms.Connection;
-
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
-
-import com.atomikos.jms.AtomikosConnectionFactoryBean;
 
 @Service
 class HornetQTestServiceImpl implements HornetQTestService {
@@ -28,13 +24,9 @@ class HornetQTestServiceImpl implements HornetQTestService {
 	}
 	
 	@Override
-	public void doHornetQStuffUhYeah() {
-		try {
-		jmsTemplate.convertAndSend("hallo welt!");
+	public void sendMessage(String message, String queueName) {
+		jmsTemplate.convertAndSend(queueName, message);
 		sessionFactory.getCurrentSession();
-		} catch(Exception e){
-			throw new RuntimeException("bam, you failed! Your jms connection factory is broken!", e);
-		}
 	}
 
 }
