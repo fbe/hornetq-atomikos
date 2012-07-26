@@ -1,5 +1,6 @@
 package name.felixbecker.hornetq.tapestry.pages;
 
+import name.felixbecker.hornetq.HornetQTestService;
 import name.felixbecker.hornetq.services.HornetQService;
 
 import org.apache.log4j.Logger;
@@ -19,6 +20,8 @@ public class Index {
 	
 	@Inject
 	HornetQService hornetQService;
+
+	@Inject HornetQTestService hornetQTestService;
 	
 	@Inject
 	Messages messages;
@@ -39,6 +42,10 @@ public class Index {
 	}     
 	void onSelectedFromStartServer() {
 		stop = false;
+	}
+
+	void onActionFromTriggerHornetQ(){
+		hornetQTestService.doHornetQStuffUhYeah();
 	}
 	
 	void onActionFromSaveSampleEntityLink(){

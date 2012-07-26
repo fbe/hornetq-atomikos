@@ -13,8 +13,12 @@
 
 		<t:zone t:id="formZone">
 			
-			<t:actionlink t:id="saveSampleEntityLink">Save new SampleEntity</t:actionlink>
-			<t:actionlink t:id="lookupSessionLink">only lookup session!</t:actionlink>
+			<ul>
+				<li><t:actionlink t:id="saveSampleEntityLink">Save new SampleEntity</t:actionlink></li>
+				<li><t:actionlink t:id="lookupSessionLink">only lookup session!</t:actionlink></li>
+				<li><t:actionlink t:id="triggerHornetQ">Trigger hornetq</t:actionlink></li>
+			
+			</ul>
 			
 			<p>
 				<t:testLED label="HornetQ-Instance" test="hornetQInstanceRunning"/>

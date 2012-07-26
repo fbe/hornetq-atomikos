@@ -4,6 +4,7 @@ import name.felixbecker.hornetq.entities.SampleEntity;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hornetq.api.core.SimpleString;
 import org.hornetq.core.config.impl.FileConfiguration;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
@@ -40,6 +41,7 @@ class HornetQServiceImpl implements HornetQService {
 			LOGGER.info("starting up hornetq");
 			hornetQInstance = HornetQServers.newHornetQServer(fileConfiguration);
 			hornetQInstance.start();
+			hornetQInstance.createQueue(new SimpleString("foo"), new SimpleString("foo"), null, true, true);
 		} else {
 			throw new RuntimeException("HornetQ instance already exists!");
 		}

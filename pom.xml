@@ -149,6 +149,12 @@
 		
 		<dependency>
 			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jms</artifactId>
+			<version>3.8.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.atomikos</groupId>
 			<artifactId>transactions-jdbc</artifactId>
 			<version>3.8.0</version>
 		</dependency>
@@ -169,6 +175,18 @@
 			<artifactId>netty</artifactId>
 			<version>3.2.7.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hornetq</groupId>
+			<artifactId>hornetq-jms-client</artifactId>
+			<version>2.2.18.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms-api</artifactId>
+			<version>1.1-rev-1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -209,6 +227,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
