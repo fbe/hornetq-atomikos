@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>name.felixbecker</groupId>
-	<artifactId>hornetq-webapp</artifactId>
+	<artifactId>hornetq-atomikos</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hornetq</name>
+	<name>hornetq-atomikos</name>
 
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/fbe/hornetq-atomikos</url>
 
 	<properties>
 		<tapestry-release-version>5.3.3</tapestry-release-version>

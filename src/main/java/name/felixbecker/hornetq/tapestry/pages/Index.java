@@ -1,6 +1,6 @@
 package name.felixbecker.hornetq.tapestry.pages;
 
-import name.felixbecker.hornetq.HornetQTestService;
+import name.felixbecker.hornetq.SampleService;
 import name.felixbecker.hornetq.services.HornetQService;
 
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ public class Index {
 	@Inject
 	HornetQService hornetQService;
 
-	@Inject HornetQTestService hornetQTestService;
+	@Inject SampleService hornetQTestService;
 	
 	@Inject
 	AlertManager alertManager;
@@ -40,7 +40,13 @@ public class Index {
 	@Persist
 	String message;
 	
+	@Property
+	boolean persistEntity = false;
+	
 	private boolean stop;
+
+	@Property
+	boolean sendMessage = false;
 	
 	void onSelectedFromStopServer() {
 		stop = true;
@@ -51,7 +57,7 @@ public class Index {
 
 	void onSuccessFromSendMessageForm(){
 		try {
-			hornetQTestService.sendMessage(message, queueName);
+			hornetQTestService.sendMessageAndPersistEntity(message, queueName, sendMessage, persistEntity);
 		} catch(Exception e){
 			LOGGER.info("Sending failed", e);
 			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());

@@ -33,6 +33,7 @@ class HornetQServiceImpl implements HornetQService {
 			
 			fileConfiguration = new FileConfiguration();
 			fileConfiguration.setConfigurationUrl(configurationName);
+
 			try {
 				fileConfiguration.start();
 			} catch (Exception e) {
