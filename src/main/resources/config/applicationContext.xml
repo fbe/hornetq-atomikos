@@ -52,7 +52,23 @@
 			<value>300</value>
 		</property>
 	</bean>
+	
+	<!-- 
+	
+			<bean name="hornetqXAConnectionFactory" class="org.hornetq.jms.client.HornetQXAConnectionFactory">
+		<constructor-arg name="ha" value="false" />
+		<constructor-arg>
+			<bean class="org.hornetq.api.core.TransportConfiguration">
+				<constructor-arg
+					value="org.hornetq.core.remoting.impl.invm.InVMConnectorFactory" />
+			</bean>
+		</constructor-arg>
+	</bean>
+	 -->
 
+	<bean id="hornetQSessionFactory" class="org.hornetq.core.client.impl.ClientSessionFactoryImpl">
+		
+	</bean>
 
 	<bean id="hibernateSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -71,27 +87,6 @@
 		</property>
 	</bean>
 
-	<bean name="hornetqXAConnectionFactory" class="org.hornetq.jms.client.HornetQXAConnectionFactory">
-		<constructor-arg name="ha" value="false" />
-		<constructor-arg>
-			<bean class="org.hornetq.api.core.TransportConfiguration">
-				<constructor-arg
-					value="org.hornetq.core.remoting.impl.invm.InVMConnectorFactory" />
-			</bean>
-		</constructor-arg>
-	</bean>
-
-	<bean id="jmsConnectionFactory" class="com.atomikos.jms.AtomikosConnectionFactoryBean"
-		init-method="init" destroy-method="close">
-		<property name="uniqueResourceName" value="hornetqXA" />
-		<property name="xaConnectionFactory" ref="hornetqXAConnectionFactory" />
-		<property name="maxPoolSize" value="100" />
-
-	</bean>
 
 
-	<bean name="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory" ref="jmsConnectionFactory" />
-		<property name="defaultDestinationName" value="foo" />
-	</bean>
 </beans>

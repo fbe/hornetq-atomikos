@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 class HornetQServiceImpl implements HornetQService {
 	
 	@Autowired private SessionFactory sessionFactory;
-	@Autowired private MBeanServer mbeanServer;
 	
 	private static final Logger LOGGER = Logger.getLogger(HornetQServers.class); 
 	
