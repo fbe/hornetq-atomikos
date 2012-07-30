@@ -14,7 +14,7 @@ public class BroadcastMessageConsumer implements MessageHandler {
 			if(LOGGER.isDebugEnabled()){  
 			    LOGGER.debug("received TextMessage: " + message.getStringProperty(TestConstants.TEST_MESSAGE_PROPERTY));
 			}
-		
+			
 			message.acknowledge();
 		} catch (HornetQException e) {
 			LOGGER.fatal("error acknowledging message! ", e);

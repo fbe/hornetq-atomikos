@@ -78,6 +78,7 @@ public class HornetQStartupListener implements ServletContextListener {
 		}
 		
         final ClientConsumer messageConsumer = session.createConsumer(TestConstants.TEST_QUEUE_NAME);
+        
         messageConsumer.setMessageHandler(new MessageHandler() {
 
 			public void onMessage(ClientMessage message) {
