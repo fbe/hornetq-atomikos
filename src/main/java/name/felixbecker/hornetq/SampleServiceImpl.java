@@ -33,6 +33,8 @@ class SampleServiceImpl implements SampleService {
 	@Override
 	public void sendMessageAndPersistEntity(String message, String queueName, boolean sendMessage, boolean persistMessage) throws Exception {
 		
+		LOGGER.info("sending and persisting. sending: " + sendMessage + " - persisting: " + persistMessage);
+		
 		if(sendMessage){
 			ServerLocator serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
 			ClientSessionFactory hornetQSessionFactory = serverLocator.createSessionFactory();

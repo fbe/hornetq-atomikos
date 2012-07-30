@@ -1,19 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
-	<head>
-		<title>HornetQ-Samples</title>
-	</head>
-	<body style="width:900px; margin:auto; border: 1px dotted grey; padding:20px;">
-
-		<h1>HornetQ-Example</h1>
+<t:mainLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" title="HornetQ"  xml:space="preserve">
 		
-		<t:alerts />
-
 		<t:zone t:id="formZone">
 			
-			<t:form t:id="sendMessageForm" t:zone="formZone" style="border: 1px dotted grey">
+			<t:form t:id="sendMessageForm" t:zone="formZone" class="well">
 				<ul>
 					<li><t:textfield t:id="queueName" value="queueName" validate="required" /></li>		
 					<li><t:textfield t:id="message" value="message" validate="required" /></li>
@@ -22,24 +11,26 @@
 					<li><t:submit value="Message an Queue senden!" t:id="sendMessageToQueue" /></li>
 				</ul>
 			</t:form>
-			<ul>
-				<li><t:actionlink t:id="saveSampleEntityLink">Save new SampleEntity</t:actionlink></li>
-				<li><t:actionlink t:id="lookupSessionLink">only lookup session!</t:actionlink></li>
-	
 			
-			</ul>
+			<fieldset class="well">
+				<t:actionlink class="btn" t:id="saveSampleEntityLink">Save new SampleEntity</t:actionlink> <t:actionlink class="btn" t:id="lookupSessionLink">only lookup session!</t:actionlink>
+			</fieldset>
 			
-			<p>
-				<t:testLED label="HornetQ-Instance" test="hornetQInstanceRunning"/>
-			</p>
+			
 	
-			<t:form t:id="startHornetQForm" t:zone="formZone" style="border: 1px solid black">
+			<t:form t:id="startHornetQForm" t:zone="formZone" class="well form-inline">
 				<t:errors />
+				
+				<p>
+					<t:testLED label="HornetQ-Instance" test="hornetQInstanceRunning"/>
+				</p>
+				
 				Configuration:
-				<t:select t:id="configName" validate="required" model="literal:config/hornetq1-configuration.xml,config/hornetq2-configuration.xml"/>
-				<t:submit value="hornetQ starten!" t:id="startServer" />
-				<t:submit value="hornetQ stoppen!" t:id="stopServer" />
+				<fieldset>
+					<t:select class="btn" t:id="configName" validate="required" model="literal:config/hornetq1-configuration.xml,config/hornetq2-configuration.xml"/> 
+					<t:submit class="btn btn-success" value="hornetQ starten!" t:id="startServer" />
+					<t:submit class="btn btn-danger" value="hornetQ stoppen!" t:id="stopServer" />
+				</fieldset>
 			</t:form>
 		</t:zone>
-	</body>
-</html>
+</t:mainLayout>
