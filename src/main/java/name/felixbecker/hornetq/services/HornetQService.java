@@ -1,5 +1,7 @@
 package name.felixbecker.hornetq.services;
 
+import java.util.List;
+
 import org.hornetq.core.config.impl.FileConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +11,6 @@ public interface HornetQService {
 	public void stopServer() throws Exception;
 	public boolean isHornetQRunning();
 	public FileConfiguration getActiveConfiguration();
-	public void performHibernateSave();
-	public void performHibernateSessionLookup();
+	public List<String> getQueues();
+	public void createPersistentQueue(String address, String queueName, boolean durable) throws Exception;
 }

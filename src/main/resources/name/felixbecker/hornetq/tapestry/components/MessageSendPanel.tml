@@ -1,0 +1,11 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
+	<t:form t:id="sendMessageForm" t:zone="formZone" class="well">
+				<ul>
+					<li><t:textfield t:id="queueName" value="queueName" validate="required" /></li>		
+					<li><t:textfield t:id="message" value="message" validate="required" /></li>
+					<li><t:label for="sendMessage"/> <t:checkbox t:id="sendMessage" /> </li>
+					<li><t:label for="persistEntity" /><t:checkbox t:id="persistEntity" /></li>		
+					<li><t:submit value="Message an Queue senden!" t:id="sendMessageToQueue" /></li>
+				</ul>
+			</t:form>
+</t:container>

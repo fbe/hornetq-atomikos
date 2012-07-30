@@ -18,7 +18,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Service
 class SampleServiceImpl implements SampleService {
 
-	
 	private static final Logger LOGGER = Logger.getLogger(SampleServiceImpl.class);
 	
 	private final SessionFactory sessionFactory;

@@ -1,0 +1,14 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
+<t:form t:id="startHornetQForm" t:zone="formZone" class="well form-inline">
+				<t:errors />
+								
+				Configuration:
+					<t:select t:id="configName" validate="required" model="literal:config/hornetq1-configuration.xml,config/hornetq2-configuration.xml"/> 
+					<t:if test="hornetQService.hornetQRunning">
+						<t:submit class="btn btn-danger" value="hornetQ stoppen!" t:id="stopServer" />
+						<p:else>
+							<t:submit class="btn btn-success" value="hornetQ starten!" t:id="startServer" />
+						</p:else>
+					</t:if>
+			</t:form>
+</t:container>

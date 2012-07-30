@@ -1,0 +1,11 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="well">
+	Deployed Queues:
+		<ul>
+			<li t:type="loop" source="hornetQService.queues" value="queue">
+				${queue}
+			</li>
+		</ul>
+	</div>
+</t:container>

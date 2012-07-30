@@ -1,13 +1,19 @@
 package name.felixbecker.hornetq.services;
 
-import javax.management.MBeanServer;
-
-import name.felixbecker.hornetq.entities.SampleEntity;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hornetq.api.core.SimpleString;
+import org.hornetq.api.core.TransportConfiguration;
+import org.hornetq.api.core.client.ClientSession;
+import org.hornetq.api.core.client.ClientSessionFactory;
+import org.hornetq.api.core.client.HornetQClient;
+import org.hornetq.api.core.client.ServerLocator;
 import org.hornetq.core.config.impl.FileConfiguration;
+import org.hornetq.core.remoting.impl.invm.InVMConnectorFactory;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,15 +73,21 @@ class HornetQServiceImpl implements HornetQService {
 	}
 
 	@Override
-	public void performHibernateSave() {
-		LOGGER.info("Current session TX: " + sessionFactory.getCurrentSession().getTransaction());
-		sessionFactory.getCurrentSession().save(new SampleEntity());
-	}
-
-	@Override
-	public void performHibernateSessionLookup() {
-		LOGGER.info("Current session TX: " + sessionFactory.getCurrentSession());
+	public List<String> getQueues() {
+		if(hornetQInstance != null){
+			return Arrays.asList(hornetQInstance.getHornetQServerControl().getQueueNames());
+		} else {
+			return new ArrayList<String>();
+		}
 	}
 	
+	public void createPersistentQueue(String address, String queueName, boolean durable) throws Exception {
+		ServerLocator serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
+		ClientSessionFactory hornetQSessionFactory = serverLocator.createSessionFactory();
+		ClientSession clientSession = hornetQSessionFactory.createSession(true, true);
+		clientSession.createQueue(new SimpleString(address), new SimpleString(queueName), durable);
+		clientSession.close();
+		hornetQSessionFactory.close();
+	}
 	
 }

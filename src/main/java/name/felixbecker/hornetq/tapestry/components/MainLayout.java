@@ -1,6 +1,7 @@
 package name.felixbecker.hornetq.tapestry.components;
 
 import org.apache.tapestry5.BindingConstants;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -20,4 +21,10 @@ public class MainLayout {
 		@Property
 		@Parameter(required = true, defaultPrefix = BindingConstants.LITERAL)
 		private String title;
+		
+		@Property
+		@Parameter(defaultPrefix = BindingConstants.LITERAL)
+		private Block sidebar;
+		
+		
 }

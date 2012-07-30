@@ -5,7 +5,7 @@
 
 	<!-- persistence and journal settings -->
 	
-	<persistence-enabled>false</persistence-enabled>
+	<persistence-enabled>true</persistence-enabled>
 
 	<!-- TODO test with async io and tx commit for each message -->
 	<journal-type>NIO</journal-type>
@@ -63,13 +63,17 @@
 
 	<!-- fixed queues -->
 
-	<!-- <queues>
-		<queue name="jms.queue.testQueue">
-			<address>jms.queue.testQueue</address>
+	<queues>
+		<queue name="testQueue">
+			<address>testQueue</address>
 			<durable>true</durable>
 		</queue>
-	</queues> -->
-
+		<queue name="testQueue2">
+			<address>testQueue</address>
+			<durable>true</durable>
+		</queue>
+	</queues>
+	
 	<security-settings>
 		<security-setting match="#">
 			<permission type="createDurableQueue" roles="guest" />
