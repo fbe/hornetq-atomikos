@@ -1,7 +1,6 @@
 package name.felixbecker.hornetq.tapestry.components;
 
 import name.felixbecker.hornetq.SampleService;
-import name.felixbecker.hornetq.services.HornetQService;
 
 import org.apache.log4j.Logger;
 import org.apache.tapestry5.alerts.AlertManager;

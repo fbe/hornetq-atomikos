@@ -9,6 +9,9 @@
 			
 			<h2>Create Queue</h2>
 			<t:createQueuePanel />
+			
+			<h2>Create Consumer</h2>
+			<t:createConsumerPanel />
 		</t:zone>
 		
 		<p:sidebar>

@@ -2,7 +2,6 @@ package name.felixbecker.hornetq.tapestry.pages;
 
 import name.felixbecker.hornetq.services.HornetQService;
 
-import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -12,9 +11,6 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 public class Index {
 
-	private static final Logger LOGGER = Logger.getLogger(Index.class);
-	
-	
 	@Inject
 	@Property
 	HornetQService hornetQService;
