@@ -1,5 +1,7 @@
 package name.felixbecker.hornetq.services;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.apache.log4j.Logger;
 import org.hornetq.api.core.HornetQException;
 import org.hornetq.api.core.TransportConfiguration;
@@ -21,6 +23,8 @@ public class SampleConsumer implements MessageHandler {
 	private final ClientConsumer consumer;
 
 	private final ClientSession clientSession;
+	
+	private AtomicLong messageCounter;
 	
 	public SampleConsumer(String consumerName, String consumerQueue) {
 	
@@ -58,6 +62,7 @@ public class SampleConsumer implements MessageHandler {
 		try {
 			message.acknowledge();
 			clientSession.commit();
+			messageCounter.incrementAndGet();
 		} catch (HornetQException e) {
 			e.printStackTrace();
 		}
@@ -67,6 +72,9 @@ public class SampleConsumer implements MessageHandler {
 		return consumerName;
 	}
 	
+	public synchronized long getMessageCounter(){
+		return messageCounter.get();
+	}
 	
 
 }
