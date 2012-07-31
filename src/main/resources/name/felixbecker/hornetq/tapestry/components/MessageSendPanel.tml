@@ -1,6 +1,6 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
 	<t:form t:id="sendMessageForm" t:zone="formZone" class="well">
-		<t:label for="queueName">Queue-Name:</t:label><t:textfield t:id="queueName" value="queueName" validate="required" />		
+		<t:label for="queueName">Address:</t:label><t:textfield t:id="queueName" value="queueName" validate="required" />		
 		<t:label for="message">Message:</t:label><t:textfield t:id="message" value="message" validate="required" />
 		<t:label for="sendMessage">Save message to queue: <t:checkbox t:id="sendMessage" /></t:label>  
 		<t:label for="persistEntity">Save message to database: <t:checkbox t:id="persistEntity" /></t:label>		
