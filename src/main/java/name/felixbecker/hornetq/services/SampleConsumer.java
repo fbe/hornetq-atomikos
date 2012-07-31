@@ -33,7 +33,8 @@ public class SampleConsumer implements MessageHandler {
 			consumer = clientSession.createConsumer(consumerQueue);
 			consumer.setMessageHandler(this);
 			this.clientSession = clientSession;
-		
+			clientSession.start();
+
 		} catch(Exception e){
 			throw new RuntimeException("creating consumer failed! " + e.getMessage(), e);
 		}
@@ -53,10 +54,10 @@ public class SampleConsumer implements MessageHandler {
 
 	@Override
 	public void onMessage(ClientMessage message) {
-		message.getStringProperty("content");
+		LOGGER.info("Consumer "+ consumerName + "here! message: " + message.getStringProperty("content"));
 		try {
 			message.acknowledge();
-			LOGGER.info("Consumer "+ consumerName + "here! message: " + message);
+			clientSession.commit();
 		} catch (HornetQException e) {
 			e.printStackTrace();
 		}
