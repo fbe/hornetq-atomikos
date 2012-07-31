@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import name.felixbecker.hornetq.HornetQClientSessionFactory;
+
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hornetq.api.core.SimpleString;
-import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.core.client.ClientSession;
-import org.hornetq.api.core.client.ClientSessionFactory;
-import org.hornetq.api.core.client.HornetQClient;
-import org.hornetq.api.core.client.ServerLocator;
 import org.hornetq.core.config.impl.FileConfiguration;
-import org.hornetq.core.remoting.impl.invm.InVMConnectorFactory;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +20,8 @@ import org.springframework.stereotype.Service;
 class HornetQServiceImpl implements HornetQService {
 	
 	@Autowired private SessionFactory sessionFactory;
+	
+	@Autowired private HornetQClientSessionFactory hornetQClientSessionFactory;
 	
 	private static final Logger LOGGER = Logger.getLogger(HornetQServers.class); 
 	
@@ -82,12 +81,9 @@ class HornetQServiceImpl implements HornetQService {
 	}
 	
 	public void createPersistentQueue(String address, String queueName, boolean durable) throws Exception {
-		ServerLocator serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
-		ClientSessionFactory hornetQSessionFactory = serverLocator.createSessionFactory();
-		ClientSession clientSession = hornetQSessionFactory.createSession(true, true);
+		ClientSession clientSession = hornetQClientSessionFactory.createSession(true, true);
 		clientSession.createQueue(new SimpleString(address), new SimpleString(queueName), durable);
 		clientSession.close();
-		hornetQSessionFactory.close();
 	}
 	
 }

@@ -2,17 +2,14 @@ package name.felixbecker.hornetq.services;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import name.felixbecker.hornetq.HornetQClientSessionFactory;
+
 import org.apache.log4j.Logger;
 import org.hornetq.api.core.HornetQException;
-import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.core.client.ClientConsumer;
 import org.hornetq.api.core.client.ClientMessage;
 import org.hornetq.api.core.client.ClientSession;
-import org.hornetq.api.core.client.ClientSessionFactory;
-import org.hornetq.api.core.client.HornetQClient;
 import org.hornetq.api.core.client.MessageHandler;
-import org.hornetq.api.core.client.ServerLocator;
-import org.hornetq.core.remoting.impl.invm.InVMConnectorFactory;
 
 public class SampleConsumer implements MessageHandler {
 
@@ -26,14 +23,12 @@ public class SampleConsumer implements MessageHandler {
 	
 	private AtomicLong messageCounter = new AtomicLong(0);
 	
-	public SampleConsumer(String consumerName, String consumerQueue) {
+	public SampleConsumer(HornetQClientSessionFactory clientSessionFactory, String consumerName, String consumerQueue) {
 	
 		this.consumerName = consumerName;
 		try {
 		
-			ServerLocator serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
-			ClientSessionFactory hornetQSessionFactory = serverLocator.createSessionFactory();
-			ClientSession clientSession = hornetQSessionFactory.createSession(true, true);
+			ClientSession clientSession = clientSessionFactory.createSession(true, true);
 			consumer = clientSession.createConsumer(consumerQueue);
 			consumer.setMessageHandler(this);
 			this.clientSession = clientSession;

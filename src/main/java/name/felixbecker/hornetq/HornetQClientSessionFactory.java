@@ -43,6 +43,16 @@ public class HornetQClientSessionFactory {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public ClientSession createXASession(){
+		try {
+			initializeSessionFactoryIfRequired();
+			return clientSessionFactory.createXASession();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	
 	// lazy init of session factory because hornetq can be started later
 	private synchronized void initializeSessionFactoryIfRequired() throws Exception{

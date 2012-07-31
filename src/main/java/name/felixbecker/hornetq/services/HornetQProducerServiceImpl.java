@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
-import org.hornetq.api.core.client.ClientSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
