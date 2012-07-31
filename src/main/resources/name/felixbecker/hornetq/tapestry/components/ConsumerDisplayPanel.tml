@@ -4,7 +4,7 @@
 	Consumers:
 		<ul>
 			<li t:type="loop" source="hornetQConsumerService.consumers" value="consumer">
-				${consumer.consumerName}
+				${consumer.consumerName} (${consumer.messageCounter})
 			</li>
 		</ul>
 	</div>
