@@ -3,6 +3,7 @@
 		<t:label for="queueName">Address:</t:label><t:textfield t:id="queueName" value="queueName" validate="required" />		
 		<t:label for="message">Message:</t:label><t:textfield t:id="message" value="message" validate="required" />
 		<t:label for="sendMessage">Save message to queue: <t:checkbox t:id="sendMessage" /></t:label>  
+		<t:label for="durable">Message durable: <t:checkbox t:id="durable" /></t:label>
 		<t:label for="persistEntity">Save message to database: <t:checkbox t:id="persistEntity" /></t:label>		
 		<t:submit value="Message an Queue senden!" t:id="sendMessageToQueue" />
 	</t:form>

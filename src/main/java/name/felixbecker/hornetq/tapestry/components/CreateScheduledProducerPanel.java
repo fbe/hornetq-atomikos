@@ -17,22 +17,33 @@ public class CreateScheduledProducerPanel {
 	@Inject
 	HornetQProducerService producerService;
 	
-	
-	@Property
-	String producerAddress;
-	
-	@Property
-	String producerName;
-	
 	@Inject
 	AlertManager alertManager;
+
+	@Property
+	private String name;
+
+	@Property
+	private String address;
+
+	@Property
+	private String message;
+
+	@Property
+	private boolean durable;
+
+	@Property
+	private int millisToSleepBetweenSending;
+	
 	
 	public void onSuccessFromCreateScheduledProducerForm() {
 		try {
-			producerService.createProducer(producerName, producerAddress);
+			producerService.createProducer(name, address, message, durable, millisToSleepBetweenSending);
 		} catch(Exception e){
 			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());
 			LOGGER.error("Error creating producer", e);
 		}
 	}
+
+	
 }

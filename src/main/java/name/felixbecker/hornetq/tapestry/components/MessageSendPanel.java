@@ -29,6 +29,9 @@ public class MessageSendPanel {
 	@Property
 	boolean sendMessage = false;
 	
+	@Property
+	boolean durable = false;
+	
 	@Inject SampleService hornetQTestService;
 
 	@Inject
@@ -37,7 +40,7 @@ public class MessageSendPanel {
 	
 	void onSuccessFromSendMessageForm(){
 		try {
-			hornetQTestService.sendMessageAndPersistEntity(message, queueName, sendMessage, persistEntity);
+			hornetQTestService.sendMessageAndPersistEntity(message, queueName, sendMessage, persistEntity, durable);
 		} catch(Exception e){
 			LOGGER.info("Sending failed", e);
 			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());

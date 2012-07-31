@@ -31,7 +31,7 @@ class SampleServiceImpl implements SampleService {
 	}
 	
 	@Override
-	public void sendMessageAndPersistEntity(String message, String address, boolean sendMessage, boolean persistMessage) throws Exception {
+	public void sendMessageAndPersistEntity(String message, String address, boolean sendMessage, boolean persistMessage, boolean durable) throws Exception {
 		
 		LOGGER.info("sending and persisting. sending: " + sendMessage + " - persisting: " + persistMessage);
 		
@@ -44,7 +44,7 @@ class SampleServiceImpl implements SampleService {
 			jtaTransactionManager.getTransactionManager().getTransaction().enlistResource(clientSession);
 			ClientProducer producer = clientSession.createProducer(address);
 			
-			ClientMessage clientMessage = clientSession.createMessage(true); // TODO durable
+			ClientMessage clientMessage = clientSession.createMessage(durable);
 			clientMessage.putStringProperty("content", message);
 			producer.send(clientMessage);
 
