@@ -15,4 +15,9 @@ public class HornetQConsumerServiceImpl implements HornetQConsumerService {
 		consumers.add(new SampleConsumer(consumerName, consumerQueue));
 	}
 
+	@Override
+	public Collection<SampleConsumer> getConsumers() {
+		return consumers;
+	}
+
 }
