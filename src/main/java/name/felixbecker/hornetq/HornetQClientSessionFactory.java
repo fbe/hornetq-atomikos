@@ -58,4 +58,17 @@ public class HornetQClientSessionFactory {
 	private synchronized void initializeSessionFactoryIfRequired() throws Exception{
 		if(clientSessionFactory == null) clientSessionFactory = serverLocator.createSessionFactory();
 	}
+	
+	// call me after starting horny hornetq
+	public void restartSessionFactory(){
+		if(clientSessionFactory != null){
+			clientSessionFactory.close();
+		}
+		
+		try {
+			clientSessionFactory = serverLocator.createSessionFactory();
+		} catch(Exception e){
+			throw new RuntimeException(e);
+		}
+	}
 }

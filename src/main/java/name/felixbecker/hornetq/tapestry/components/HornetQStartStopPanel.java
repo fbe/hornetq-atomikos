@@ -1,5 +1,6 @@
 package name.felixbecker.hornetq.tapestry.components;
 
+import name.felixbecker.hornetq.HornetQClientSessionFactory;
 import name.felixbecker.hornetq.services.HornetQService;
 
 import org.apache.log4j.Logger;
@@ -22,6 +23,10 @@ public class HornetQStartStopPanel {
 		stop = false;
 	}
 	
+	
+	@Inject 
+	HornetQClientSessionFactory clientSessionFactory;
+	
 	@Inject
 	@Property
 	HornetQService hornetQService;
@@ -38,6 +43,8 @@ public class HornetQStartStopPanel {
 				hornetQService.stopServer();
 			} else {
 				hornetQService.startServer(configName);
+				clientSessionFactory.restartSessionFactory();
+				
 			}
 			
 		} catch (Exception e) {
