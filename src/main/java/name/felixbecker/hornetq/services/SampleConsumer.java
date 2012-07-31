@@ -24,7 +24,7 @@ public class SampleConsumer implements MessageHandler {
 
 	private final ClientSession clientSession;
 	
-	private AtomicLong messageCounter;
+	private AtomicLong messageCounter = new AtomicLong(0);
 	
 	public SampleConsumer(String consumerName, String consumerQueue) {
 	
