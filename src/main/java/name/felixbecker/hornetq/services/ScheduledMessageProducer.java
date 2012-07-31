@@ -1,13 +1,10 @@
 package name.felixbecker.hornetq.services;
 
+import name.felixbecker.hornetq.HornetQClientSessionFactory;
+
 import org.hornetq.api.core.Message;
-import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.core.client.ClientProducer;
 import org.hornetq.api.core.client.ClientSession;
-import org.hornetq.api.core.client.ClientSessionFactory;
-import org.hornetq.api.core.client.HornetQClient;
-import org.hornetq.api.core.client.ServerLocator;
-import org.hornetq.core.remoting.impl.invm.InVMConnectorFactory;
 
 /**
  * @author Felix Becker
@@ -24,22 +21,18 @@ public class ScheduledMessageProducer implements Runnable {
 	volatile int millisToSleepBetweenSending = 0;
 	
 	private final ClientSession clientSession; 
-	private final ServerLocator serverLocator;
-	private final ClientSessionFactory hornetQSessionFactory; // TODO hornetq sessino factory as spring bean
 	private final ClientProducer producer;
 	private final String message;
 	private boolean durable = false;
 	private final String name;
 	
-	public ScheduledMessageProducer(ClientSessionFactory sessionFactory, String name, String address, String message, boolean durable, int millisToSleepBetweenSending){
+	public ScheduledMessageProducer(HornetQClientSessionFactory sessionFactory, String name, String address, String message, boolean durable, int millisToSleepBetweenSending){
 		this.name = name;
 		this.message = message;
 		this.durable = durable;
 		this.millisToSleepBetweenSending = millisToSleepBetweenSending;
 		try {
-			serverLocator = HornetQClient.createServerLocatorWithoutHA(new TransportConfiguration(InVMConnectorFactory.class.getName()));
-			hornetQSessionFactory = serverLocator.createSessionFactory();
-			clientSession = hornetQSessionFactory.createSession(true, true);
+			clientSession = sessionFactory.createSession(true, true);
 			producer = clientSession.createProducer(address);
 		} catch(Exception e){
 			throw new RuntimeException(e); // TODO better exception handling
@@ -54,8 +47,6 @@ public class ScheduledMessageProducer implements Runnable {
 				if (shutdown) {
 					producer.close();
 					clientSession.close();
-					hornetQSessionFactory.close();
-					serverLocator.close();
 					return;
 				}
 

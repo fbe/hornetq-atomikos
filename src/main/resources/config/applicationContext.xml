@@ -11,22 +11,7 @@
 
 	<context:component-scan base-package="name.felixbecker.hornetq" />
 
-	<bean id="inVmTransportConfiguration" class="org.hornetq.api.core.TransportConfiguration">
-		<constructor-arg index="0" value="org.hornetq.core.remoting.impl.invm.InVMConnectorFactory"/>
-    </bean>
-
-	<bean id="hornetQClient" class="org.hornetq.api.core.client.HornetQClient" />
-
-	<bean class="org.hornetq.api.core.client.ServerLocator" id="serverLocator" factory-bean="hornetQClient" factory-method="createServerLocatorWithoutHA">
-			<constructor-arg value="false"/>
-			<constructor-arg ref="inVmTransportConfiguration"/>
-	</bean>
-	
-	<bean class="org.hornetq.api.core.client.ClientSessionFactory" id="hornetQSessionFactory" factory-bean="serverLocator" factory-method="createSessionFactory">
-		<constructor-arg ref="inVmTransportConfiguration"/>
-	</bean>
-	
-	
+	<bean id="hornetQSessionFactory" class="name.felixbecker.hornetq.HornetQClientSessionFactory" destroy-method="destroy" />
 
 	<tx:annotation-driven transaction-manager="JtaTransactionManager" />
 
