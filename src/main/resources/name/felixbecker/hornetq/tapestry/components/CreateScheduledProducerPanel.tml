@@ -1,0 +1,8 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
+	<t:form t:id="createScheduledProducerForm" t:zone="formZone" class="well">
+		<t:label for="producerName">Producer-Name: </t:label><t:textfield t:id="producerName" value="producerName" validate="required" />
+		<t:label for="producerAddress">Producer-Address: </t:label><t:textfield t:id="producerAddress" value="producerAddress" validate="required" />
+		
+		<div><t:submit value="Producer erstellen!" /> </div>
+	</t:form>
+</t:container>

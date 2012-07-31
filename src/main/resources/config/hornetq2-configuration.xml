@@ -5,12 +5,20 @@
 
 	<!-- persistence and journal settings -->
 	
-	<persistence-enabled>false</persistence-enabled>
+	<persistence-enabled>true</persistence-enabled>
 
 	<!-- TODO test with async io and tx commit for each message -->
 	<journal-type>NIO</journal-type>
 
 	<!-- connectors / acceptors -->
+	
+	<!-- 
+				<hornetq.twinCluster.twinHost>hornetq1</hornetq.twinCluster.twinHost>
+				<hornetq.twinCluster.twinPort>5446</hornetq.twinCluster.twinPort>
+				<hornetq.twinCluster.localHostname>192.168.56.12</hornetq.twinCluster.localHostname>
+				<hornetq.twinCluster.localPort>5445</hornetq.twinCluster.localPort>
+				<tomcat.deployment.path>/hornetq</tomcat.deployment.path>
+	 -->
 	
 	<connectors>
 		<connector name="in-vm-connector">
@@ -20,14 +28,14 @@
 		<connector name="twinConnector">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory
 			</factory-class>
-			<param key="host" value="${hornetq.twinCluster.twinHost}" />
-			<param key="port" value="${hornetq.twinCluster.twinPort}" />
+			<param key="host" value="hornetq1" />
+			<param key="port" value="5446" />
 		</connector>
 		
 		<connector name="netty-connector">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
-			<param key="host" value="${hornetq.twinCluster.localHostname}" />
-			<param key="port" value="${hornetq.twinCluster.localPort}" />
+			<param key="host" value="192.168.56.12" />
+			<param key="port" value="5445" />
 		</connector>
 	</connectors>
 
@@ -37,8 +45,8 @@
 		</acceptor>
 		<acceptor name="netty-acceptor">
 			<factory-class>org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory</factory-class>
-			<param key="host" value="${hornetq.twinCluster.localHostname}" />
-			<param key="port" value="${hornetq.twinCluster.localPort}" />
+			<param key="host" value="192.168.56.12" />
+			<param key="port" value="5445" />
 		</acceptor>
 	</acceptors>
 
@@ -50,7 +58,7 @@
 
 	<cluster-connections>
 		<cluster-connection name="twinCluster">
-			<address>testAddress</address>
+			<address>testClusterAddress</address>
 			<connector-ref>netty-connector</connector-ref>
 			<retry-interval>500</retry-interval>
 			<use-duplicate-detection>true</use-duplicate-detection>
@@ -60,14 +68,6 @@
 			</static-connectors>
 		</cluster-connection>
 	</cluster-connections>
-
-	<!-- fixed queues -->
-	<queues>
-		<queue name="testQueue">
-			<address>testAddress</address>
-			<durable>true</durable>
-		</queue>
-	</queues>
 
 	<security-settings>
 		<security-setting match="#">

@@ -12,6 +12,9 @@
 			
 			<h2>Create Consumer</h2>
 			<t:createConsumerPanel />
+			
+			<h2>Create scheduled producer</h2>
+			<t:createScheduledProducerPanel />
 		</t:zone>
 		
 		<p:sidebar>
@@ -25,7 +28,7 @@
 				<t:queuedisplaypanel />
 				
 				<t:consumerDisplayPanel />
-				
+								
 			</t:zone>
 		</p:sidebar>
 		
