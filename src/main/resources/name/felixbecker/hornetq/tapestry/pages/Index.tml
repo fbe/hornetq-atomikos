@@ -1,20 +1,30 @@
 <t:mainLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" title="HornetQ"  xml:space="preserve" sidebar="sidebar">
 		
 		<t:zone t:id="formZone">
-			<h2>Send Message</h2>
-			<t:messageSendPanel />
-			
-			<h2>Start / Stop HornetQ</h2>
-			<t:hornetQStartStopPanel />
-			
-			<h2>Create Queue</h2>
-			<t:createQueuePanel />
-			
-			<h2>Create Consumer</h2>
-			<t:createConsumerPanel />
-			
-			<h2>Create scheduled producer</h2>
-			<t:createScheduledProducerPanel />
+
+			<div class="row-fluid">
+				<div class="span5">
+					
+					<h2>Start / Stop HornetQ</h2>
+					<t:hornetQStartStopPanel />
+					
+					
+					<h2>Create Queue</h2>
+					<t:createQueuePanel />
+		
+					<h2>Send Message</h2>
+					<t:messageSendPanel />
+				</div>
+				
+				<div class="span5 offset5">
+					<h2>Create Consumer</h2>
+					<t:createConsumerPanel />
+		
+					<h2>Create scheduled producer</h2>
+					<t:createScheduledProducerPanel />
+				</div>
+			</div>
+
 		</t:zone>
 		
 		<p:sidebar>
