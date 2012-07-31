@@ -31,7 +31,7 @@ public class ScheduledMessageProducer implements Runnable {
 	private boolean durable = false;
 	private final String name;
 	
-	public ScheduledMessageProducer(String name, String address, String message, boolean durable, int millisToSleepBetweenSending){
+	public ScheduledMessageProducer(ClientSessionFactory sessionFactory, String name, String address, String message, boolean durable, int millisToSleepBetweenSending){
 		this.name = name;
 		this.message = message;
 		this.durable = durable;

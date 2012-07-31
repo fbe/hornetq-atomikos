@@ -8,22 +8,12 @@
 	<body>
 		<div class="navbar">
 			<div class="navbar-inner">
-				<a class="brand" href="#">HornetQ + Atomikos Example</a>
-				<div class="container">
-					<ul class="nav">
-						<li>
-							<a href="/">HornetQ</a>
-						</li>
-						<li>
-							<a href="/atomikos">Atomikos</a>
-						</li>
-					</ul>
-				</div>
+				<t:pagelink class="brand" page="Index">HornetQ + Atomikos Example</t:pagelink>
 			</div>
 		</div>
 
 
-			<div class="page-header">
+			<div class="page-header" style="margin-left:20px;">
 				<h1>${title}</h1>
 			</div>
 	
