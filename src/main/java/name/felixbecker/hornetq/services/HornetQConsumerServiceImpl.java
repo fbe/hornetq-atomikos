@@ -2,6 +2,7 @@ package name.felixbecker.hornetq.services;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HornetQConsumerServiceImpl implements HornetQConsumerService {
 
-	private Map<String, MessageConsumer> consumers = new HashMap<String, MessageConsumer>();
+	private final Map<String, MessageConsumer> consumers = new HashMap<String, MessageConsumer>();
 	
 	@Autowired HornetQClientSessionFactory clientSessionFactory;
 	
@@ -27,6 +28,14 @@ public class HornetQConsumerServiceImpl implements HornetQConsumerService {
 	@Override
 	public Map<String,MessageConsumer> getConsumers() {
 		return consumers;
+	}
+
+	@Override
+	public synchronized void restart() {
+		for(Entry<String,MessageConsumer> consumer : consumers.entrySet()){
+			consumer.getValue().destroy();
+		}
+		consumers.clear();
 	}
 
 }

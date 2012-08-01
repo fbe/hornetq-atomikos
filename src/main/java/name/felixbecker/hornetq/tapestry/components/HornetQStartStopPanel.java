@@ -1,6 +1,8 @@
 package name.felixbecker.hornetq.tapestry.components;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
+import name.felixbecker.hornetq.services.HornetQConsumerService;
+import name.felixbecker.hornetq.services.HornetQProducerService;
 import name.felixbecker.hornetq.services.HornetQService;
 
 import org.apache.log4j.Logger;
@@ -26,6 +28,12 @@ public class HornetQStartStopPanel {
 	
 	@Inject 
 	HornetQClientSessionFactory clientSessionFactory;
+
+	@Inject
+	HornetQProducerService hornetQProducerService;
+	
+	@Inject
+	HornetQConsumerService hornetQConsumerService;
 	
 	@Inject
 	@Property
@@ -37,9 +45,13 @@ public class HornetQStartStopPanel {
 	@Property
 	String configName;
 	
+
+	
 	void onSuccessFromStartHornetQForm(){
 		try {
 			if(stop){
+				hornetQConsumerService.restart();
+				hornetQProducerService.restart();
 				hornetQService.stopServer();
 			} else {
 				hornetQService.startServer(configName);

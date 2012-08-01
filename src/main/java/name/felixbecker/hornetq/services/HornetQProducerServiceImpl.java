@@ -2,6 +2,7 @@ package name.felixbecker.hornetq.services;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
@@ -35,6 +36,15 @@ class HornetQProducerServiceImpl implements HornetQProducerService {
 			new Thread(producer).start();
 		}
 		
+	}
+
+	@Override
+	public synchronized void restart() {
+		for(Entry<String, MessageProducer> producerEntry : producers.entrySet()){
+			producerEntry.getValue().shutdown();
+		}
+		
+		producers.clear();
 	}
 
 }

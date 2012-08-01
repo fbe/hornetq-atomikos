@@ -4,10 +4,12 @@
 	Producers:
 		<ul>
 			<li t:type="loop" source="hornetQProducerService.messageProducers.keySet()" value="currentProducerKey">
-				${currentProducer.name} (${currentProducer.messageCounter})
-				<t:if test="currentProducer.shutdown">
-					 (shutdown)
-				</t:if>
+				<t:pageLink page="producerDetails" context="currentProducer.name">
+					${currentProducer.name} (${currentProducer.messageCounter})
+					<t:if test="currentProducer.shutdown">
+						 (shutdown)
+					</t:if>
+				</t:pageLink>
 			</li>
 		</ul>
 	</div>

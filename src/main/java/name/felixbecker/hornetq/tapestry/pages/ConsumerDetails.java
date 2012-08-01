@@ -16,8 +16,29 @@ public class ConsumerDetails {
 	@Property
 	MessageConsumer consumer;
 	
-	public void onActivate(String consumerName){
+	public Object onActivate(String consumerName){
 		consumer = consumerService.getConsumers().get(consumerName);
+		if(consumer == null){
+			return Index.class;
+		} else {
+			return null;
+		}
+	}
+	
+	public long getRuntimeInMilliSeconds(){
+		if(consumer.getLastMessageReceived() != null && consumer.getFirstMessageReceived() != null){
+			return consumer.getLastMessageReceived().getTime() - consumer.getFirstMessageReceived().getTime();
+		} else {
+			return -1;
+		}
+	}
+	
+	public long getMessagesPerSecond(){
+		if(getRuntimeInMilliSeconds() != -1){
+			return consumer.getMessageCounter() / (getRuntimeInMilliSeconds() / 1000);
+		}
+		
+		return 0;
 	}
 	
 }
