@@ -1,0 +1,26 @@
+<t:mainLayout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" title="HornetQ"  xml:space="preserve" sidebar="sidebar">
+		
+		<h2>Consumer ${consumer.consumerName}</h2>
+		<t:zone t:id="formZone">
+			<div class="row-fluid">
+				<table>
+				<tr>
+					<td>First message received</td>
+					<td>${consumer.firstMessageReceived}</td>
+				</tr>
+				<tr>
+					<td>Last message received</td>	
+					<td>${consumer.lastMessageReceived}</td>
+				</tr>
+				
+				
+				</table>
+			</div>
+
+		</t:zone>
+		
+		<p:sidebar>
+		
+		</p:sidebar>
+		
+</t:mainLayout>

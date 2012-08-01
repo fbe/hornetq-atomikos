@@ -3,9 +3,9 @@
 	<div class="well">
 	Producers:
 		<ul>
-			<li t:type="loop" source="hornetQProducerService.messageProducers" value="producer">
-				${producer.name} (${producer.messageCounter})
-				<t:if test="producer.shutdown">
+			<li t:type="loop" source="hornetQProducerService.messageProducers.keySet()" value="currentProducerKey">
+				${currentProducer.name} (${currentProducer.messageCounter})
+				<t:if test="currentProducer.shutdown">
 					 (shutdown)
 				</t:if>
 			</li>

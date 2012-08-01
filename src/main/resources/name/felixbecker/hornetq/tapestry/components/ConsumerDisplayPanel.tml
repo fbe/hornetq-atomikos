@@ -4,7 +4,7 @@
 	Consumers:
 		<ul>
 			<li t:type="loop" source="hornetQConsumerService.consumers.keySet()" value="currentConsumerKey">
-				${currentConsumer.consumerName} (${currentConsumer.messageCounter})
+				<t:pageLink page="consumerDetails" context="currentConsumer.consumerName">${currentConsumer.consumerName} (${currentConsumer.messageCounter})</t:pageLink>
 			</li>
 		</ul>
 	</div>

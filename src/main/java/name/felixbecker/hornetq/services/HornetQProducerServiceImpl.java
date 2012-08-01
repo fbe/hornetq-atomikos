@@ -1,7 +1,7 @@
 package name.felixbecker.hornetq.services;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 class HornetQProducerServiceImpl implements HornetQProducerService {
 
-	private final Collection<MessageProducer> producers = new ArrayList<MessageProducer>();
+	private final Map<String, MessageProducer> producers = new HashMap<String, MessageProducer>();
 	
 	@Autowired private HornetQClientSessionFactory sessionFactory;
 
 	@Override
-	public synchronized Collection<MessageProducer> getMessageProducers() {
+	public synchronized Map<String, MessageProducer> getMessageProducers() {
 		return producers;
 	}
 
@@ -25,8 +25,13 @@ class HornetQProducerServiceImpl implements HornetQProducerService {
 	public void createProducer(String name, String address, String message, int num, long limit, boolean durable, int millisToSleepBetweenSending) {
 		
 		for(int i = 0; i < num; i++){
-			MessageProducer producer = new MessageProducer(sessionFactory, name, address, message, limit, durable, millisToSleepBetweenSending);
-			producers.add(producer);
+			String nameWithId = name + "-" + i;
+			
+			MessageProducer producer = new MessageProducer(sessionFactory, nameWithId, address, message, limit, durable, millisToSleepBetweenSending);
+			if(producers.containsKey(nameWithId)){
+				throw new RuntimeException("Producer " + nameWithId + " already exists!");
+			}
+			producers.put(nameWithId, producer);
 			new Thread(producer).start();
 		}
 		

@@ -17,27 +17,21 @@
 				<h1>${title} on ${hostname}</h1>
 			</div>
 	
-	
+
 			<div class="container-fluid">
 				<div class="row-fluid">
-					<div class="span2">
-						<t:if test="sidebar">
-								<t:delegate to="sidebar" />
-						</t:if>
+					<t:if test="sidebar">
 						
-						<div class="well">
-							Alerts:
-							<t:alerts />
-						</div>
-					</div>
-					
+							<t:delegate to="sidebar" />
+
+					</t:if>
+						
 					<div class="span10">
 						<t:body />
 					</div>
 				</div>
 	
 			</div>
-		
 
 	</body>
 

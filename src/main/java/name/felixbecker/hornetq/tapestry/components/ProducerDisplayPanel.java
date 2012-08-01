@@ -12,5 +12,9 @@ public class ProducerDisplayPanel {
 	HornetQProducerService hornetQProducerService;
 	
 	@Property
-	MessageProducer producer;
+	String currentProducerKey;
+	
+	public MessageProducer getCurrentProducer(){
+		return hornetQProducerService.getMessageProducers().get(currentProducerKey);
+	}
 }

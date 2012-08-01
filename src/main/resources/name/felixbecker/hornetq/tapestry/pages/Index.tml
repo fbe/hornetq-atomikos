@@ -28,20 +28,26 @@
 		</t:zone>
 		
 		<p:sidebar>
-			<t:zone t:id="sidebarZone">
+			<div class="span2">
+				<t:zone t:id="sidebarZone">
+					<div class="well">
+						<p>
+							<t:testLED label="HornetQ-Instance" test="${hornetQService.isHornetQRunning()}"/>
+						</p>
+					</div>
+					
+					<t:queuedisplaypanel />
+					
+					<t:consumerDisplayPanel />
+					
+					<t:producerDisplayPanel />
+									
+				</t:zone>
 				<div class="well">
-					<p>
-						<t:testLED label="HornetQ-Instance" test="${hornetQService.isHornetQRunning()}"/>
-					</p>
+					Alerts:
+					<t:alerts />
 				</div>
-				
-				<t:queuedisplaypanel />
-				
-				<t:consumerDisplayPanel />
-				
-				<t:producerDisplayPanel />
-								
-			</t:zone>
+			</div>
 		</p:sidebar>
 		
 </t:mainLayout>
