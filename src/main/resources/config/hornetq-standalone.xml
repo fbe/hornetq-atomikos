@@ -9,8 +9,16 @@
 
 	<!-- TODO test with async io and tx commit for each message -->
 	<journal-type>NIO</journal-type>
-
+	
+	<journal-sync-transactional>true</journal-sync-transactional>
+	<journal-sync-non-transactional>true</journal-sync-non-transactional>
+	
+	
+	<!-- paging -->
+	<paging-directory>hornetq-paging</paging-directory>
+	
 	<!-- connectors / acceptors -->
+	
 	
 	<connectors>
 		<connector name="in-vm-connector">

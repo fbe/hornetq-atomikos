@@ -12,5 +12,9 @@ public class ConsumerDisplayPanel {
 	HornetQConsumerService hornetQConsumerService;
 	
 	@Property
-	MessageConsumer consumer;
+	String currentConsumerKey;
+	
+	public MessageConsumer getCurrentConsumer(){
+		return hornetQConsumerService.getConsumers().get(currentConsumerKey);
+	}
 }

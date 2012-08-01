@@ -2,6 +2,7 @@ package name.felixbecker.hornetq.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
@@ -19,11 +20,13 @@ public class MessageConsumer implements MessageHandler {
 	
 	
 	private final String consumerName;
+	
 	private final ClientConsumer consumer;
-
 	private final ClientSession clientSession;
 	
 	private AtomicLong messageCounter = new AtomicLong(0);
+	private Date firstMessageReceived = null;
+	private Date lastMessageReceived = null;
 	
 	volatile boolean logMessages;
 	volatile boolean saveMessages;
@@ -76,6 +79,12 @@ public class MessageConsumer implements MessageHandler {
 			messageBox.add(message);
 		}
 		
+		if(firstMessageReceived == null){
+			firstMessageReceived = new Date();
+		}
+		
+		lastMessageReceived = new Date();
+		
 		try {
 			message.acknowledge();
 			clientSession.commit();
@@ -92,6 +101,13 @@ public class MessageConsumer implements MessageHandler {
 	public synchronized long getMessageCounter(){
 		return messageCounter.get();
 	}
-	
+
+	public synchronized Date getFirstMessageReceived() {
+		return firstMessageReceived;
+	}
+
+	public synchronized Date getLastMessageReceived() {
+		return lastMessageReceived;
+	}
 
 }

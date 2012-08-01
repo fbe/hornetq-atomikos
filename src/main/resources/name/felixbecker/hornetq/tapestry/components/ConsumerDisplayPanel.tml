@@ -3,8 +3,8 @@
 	<div class="well">
 	Consumers:
 		<ul>
-			<li t:type="loop" source="hornetQConsumerService.consumers" value="consumer">
-				${consumer.consumerName} (${consumer.messageCounter})
+			<li t:type="loop" source="hornetQConsumerService.consumers.keySet()" value="currentConsumerKey">
+				${currentConsumer.consumerName} (${currentConsumer.messageCounter})
 			</li>
 		</ul>
 	</div>

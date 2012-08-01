@@ -1,5 +1,7 @@
 package name.felixbecker.hornetq.services;
 
+import java.util.Date;
+
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
 import org.hornetq.api.core.Message;
@@ -26,6 +28,9 @@ public class MessageProducer implements Runnable {
 	private boolean durable = false;
 	private final String name;
 	private volatile long messageCounter;
+	
+	private Date producerStarted = null;
+	private Date producerFinished = null;
 
 	private long limit;
 	
@@ -54,16 +59,25 @@ public class MessageProducer implements Runnable {
 	@Override
 	public void run() {
 		try {
+			producerStarted = new Date();
 			while (true) {
 
 				if (shutdown) {
 					producer.close();
 					clientSession.close();
+					
+					// for manually shutdown producers
+					if(producerFinished == null){
+						producerFinished = new Date();
+					}
+					
 					return;
 				}
 				
 				if(limit == 1){
 					shutdown = true;
+					// FIXME off by one!
+					producerFinished = new Date();
 				}
 
 				final Message messageToSend = clientSession.createMessage(durable); // TODO
@@ -95,5 +109,15 @@ public class MessageProducer implements Runnable {
 	public String getName(){
 		return name;
 	}
+
+	public synchronized Date getProducerStarted() {
+		return producerStarted;
+	}
+
+	public synchronized Date getProducerFinished() {
+		return producerFinished;
+	}
+	
+	
 
 }

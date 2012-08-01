@@ -5,6 +5,9 @@
 		<ul>
 			<li t:type="loop" source="hornetQProducerService.messageProducers" value="producer">
 				${producer.name} (${producer.messageCounter})
+				<t:if test="producer.shutdown">
+					 (shutdown)
+				</t:if>
 			</li>
 		</ul>
 	</div>

@@ -1,8 +1,8 @@
 package name.felixbecker.hornetq.services;
 
-import java.util.Collection;
+import java.util.Map;
 
 public interface HornetQConsumerService {
 	public void createConsumer(String consumerName, String consumerQueue, boolean logMessages, boolean saveMessages);
-	public Collection<MessageConsumer> getConsumers();
+	public Map<String,MessageConsumer> getConsumers();
 }

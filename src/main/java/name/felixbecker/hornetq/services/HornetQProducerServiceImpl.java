@@ -2,7 +2,6 @@ package name.felixbecker.hornetq.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
 
@@ -19,11 +18,6 @@ class HornetQProducerServiceImpl implements HornetQProducerService {
 
 	@Override
 	public synchronized Collection<MessageProducer> getMessageProducers() {
-		for(Iterator<MessageProducer> it = producers.iterator(); it.hasNext();){
-			if(it.next().isShutdown()){
-				it.remove();
-			}
-		}
 		return producers;
 	}
 
