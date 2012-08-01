@@ -2,9 +2,9 @@
 	<t:form t:id="sendMessageForm" t:zone="formZone" class="well">
 		<t:label for="queueName">Address:</t:label><t:textfield t:id="queueName" value="queueName" validate="required" />		
 		<t:label for="message">Message:</t:label><t:textfield t:id="message" value="message" validate="required" />
-		<t:label for="sendMessage">Save message to queue: <t:checkbox t:id="sendMessage" /></t:label>  
-		<t:label for="durable">Message durable: <t:checkbox t:id="durable" /></t:label>
-		<t:label for="persistEntity">Save message to database: <t:checkbox t:id="persistEntity" /></t:label>		
-		<t:submit value="Message an Queue senden!" t:id="sendMessageToQueue" />
+		<t:label for="sendMessage"><t:checkbox t:id="sendMessage" /> Save message to queue</t:label>  
+		<t:label for="durable"><t:checkbox t:id="durable" /> Message durable</t:label>
+		<t:label for="persistEntity"><t:checkbox t:id="persistEntity" /> Save message to database</t:label>		
+		<t:submit class="btn btn-primary" value="Message an Queue senden!" t:id="sendMessageToQueue" />
 	</t:form>
 </t:container>

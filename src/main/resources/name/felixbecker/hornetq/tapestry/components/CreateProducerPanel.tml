@@ -1,5 +1,5 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
-	<t:form t:id="createScheduledProducerForm" t:zone="formZone" class="well">
+	<t:form t:id="createProducerForm" t:zone="formZone" class="well">
 		<t:label for="name">Producer-Name: </t:label>
 		<t:textfield t:id="name" validate="required" />
 		
@@ -9,11 +9,18 @@
 		<t:label for="message">Message:</t:label>
 		<t:textfield t:id="message" validate="required" />
 		
-		<t:label for="durable">Durable: <t:checkbox t:id="durable" /></t:label>
 		
 		<t:label for="millisToSleepBetweenSending" />
 		<t:textfield t:id="millisToSleepBetweenSending" />
 		
-		<div><t:submit value="Producer erstellen!" /> </div>
+		<t:label for="numbers">Producer-Count: </t:label>
+		<t:textfield t:id="numbers" />
+		
+		<t:label for="limit">Messages:</t:label>
+		<t:textfield t:id="limit" />
+		
+		<t:label for="durable"><t:checkbox t:id="durable" /> Durable</t:label>
+		
+		<div><t:submit class="btn btn-primary" value="Create producer!" /></div>
 	</t:form>
 </t:container>

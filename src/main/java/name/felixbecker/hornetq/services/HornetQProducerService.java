@@ -4,6 +4,6 @@ import java.util.Collection;
 
 
 public interface HornetQProducerService {
-	public void createProducer(String name, String address, String message, boolean durable, int millisToSleepBetweenSending);
-	public Collection<ScheduledMessageProducer> getMessageProducers();
+	public void createProducer(String name, String address, String message, int num, long limit, boolean durable, int millisToSleepBetweenSending);
+	public Collection<MessageProducer> getMessageProducers();
 }

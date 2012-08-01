@@ -23,13 +23,19 @@ public class CreateConsumerPanel {
 	
 	@Property
 	String consumerQueue;
+
+	@Property
+	boolean logMessages;
+	
+	@Property
+	boolean saveMessages;
 	
 	@Inject
 	AlertManager alertManager;
 	
 	public void onSuccessFromCreateConsumerForm() {
 		try {
-			consumerService.createConsumer(consumerName, consumerQueue);
+			consumerService.createConsumer(consumerName, consumerQueue, logMessages, saveMessages);
 		} catch(Exception e){
 			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());
 			LOGGER.error("Error creating consumer!", e);

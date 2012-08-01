@@ -14,7 +14,7 @@ import org.hornetq.api.core.client.ClientSession;
  * contains shutdown method
  *
  */
-public class ScheduledMessageProducer implements Runnable {
+public class MessageProducer implements Runnable {
 
 	volatile boolean shutdown;
 	
@@ -25,10 +25,22 @@ public class ScheduledMessageProducer implements Runnable {
 	private final String message;
 	private boolean durable = false;
 	private final String name;
+	private volatile long messageCounter;
+
+	private long limit;
 	
-	public ScheduledMessageProducer(HornetQClientSessionFactory sessionFactory, String name, String address, String message, boolean durable, int millisToSleepBetweenSending){
+	public boolean isShutdown(){
+		return shutdown;
+	}
+	
+	public long getMessageCounter() {
+		return messageCounter;
+	}
+	
+	public MessageProducer(HornetQClientSessionFactory sessionFactory, String name, String address, String message, long limit, boolean durable, int millisToSleepBetweenSending){
 		this.name = name;
 		this.message = message;
+		this.limit = limit;
 		this.durable = durable;
 		this.millisToSleepBetweenSending = millisToSleepBetweenSending;
 		try {
@@ -49,6 +61,10 @@ public class ScheduledMessageProducer implements Runnable {
 					clientSession.close();
 					return;
 				}
+				
+				if(limit == 1){
+					shutdown = true;
+				}
 
 				final Message messageToSend = clientSession.createMessage(durable); // TODO
 																			// durable
@@ -56,9 +72,14 @@ public class ScheduledMessageProducer implements Runnable {
 				messageToSend.putStringProperty("content", message);
 				producer.send(messageToSend);
 				clientSession.commit();
+				messageCounter++;
 
 				if (millisToSleepBetweenSending > 0) {
 					Thread.sleep(millisToSleepBetweenSending);
+				}
+				
+				if(limit > 1){
+					limit--;	
 				}
 
 			}

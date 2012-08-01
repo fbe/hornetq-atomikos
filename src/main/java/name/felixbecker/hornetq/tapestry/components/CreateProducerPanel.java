@@ -9,9 +9,9 @@ import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-public class CreateScheduledProducerPanel {
+public class CreateProducerPanel {
 	
-	private static Logger LOGGER = Logger.getLogger(CreateScheduledProducerPanel.class);
+	private static Logger LOGGER = Logger.getLogger(CreateProducerPanel.class);
 	
 	@Property
 	@Inject
@@ -21,24 +21,30 @@ public class CreateScheduledProducerPanel {
 	AlertManager alertManager;
 
 	@Property
-	private String name;
+	String name;
 
 	@Property
-	private String address;
+	String address;
 
 	@Property
-	private String message;
+	String message;
 
 	@Property
-	private boolean durable;
+	boolean durable;
 
 	@Property
-	private int millisToSleepBetweenSending;
+	int millisToSleepBetweenSending;
+	
+	@Property
+	int numbers;
+	
+	@Property
+	long limit;
 	
 	
-	public void onSuccessFromCreateScheduledProducerForm() {
+	public void onSuccessFromCreateProducerForm() {
 		try {
-			producerService.createProducer(name, address, message, durable, millisToSleepBetweenSending);
+			producerService.createProducer(name, address, message, numbers, limit, durable, millisToSleepBetweenSending);
 		} catch(Exception e){
 			alertManager.alert(Duration.SINGLE, Severity.ERROR, e.getMessage());
 			LOGGER.error("Error creating producer", e);

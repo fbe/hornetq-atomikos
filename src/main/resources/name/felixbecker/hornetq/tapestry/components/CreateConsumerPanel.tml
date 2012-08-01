@@ -1,8 +1,11 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
 	<t:form t:id="createConsumerForm" t:zone="formZone" class="well">
+		
 		<t:label for="consumerName">Consumer-Name: </t:label><t:textfield t:id="consumerName" value="consumerName" validate="required" />
 		<t:label for="consumerQueue">Consumer-Queue: </t:label><t:textfield t:id="consumerQueue" value="consumerQueue" validate="required" />
+		<t:label for="logMessages"><t:checkbox t:id="logMessages" /> Log messages</t:label>
+		<t:label for="saveMessages"><t:checkbox t:id="saveMessages" /> Save messages</t:label>
 		
-		<div><t:submit value="Consumer erstellen!" /> </div>
+		<div><t:submit class="btn btn-primary" value="Consumer erstellen!" /> </div>
 	</t:form>
 </t:container>

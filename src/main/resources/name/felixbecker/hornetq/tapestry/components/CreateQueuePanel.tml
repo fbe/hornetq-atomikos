@@ -1,8 +1,8 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"	xmlns:p="tapestry:parameter" xml:space="preserve">
 	<t:form t:id="addQueueForm" t:zone="formZone" class="well">
-		<t:label ignoreBody="false" for="createQueueName">Queue-Name: </t:label><t:textfield t:id="createQueueName" value="createQueueName" validate="required" />
-		<t:label ignoreBody="false" for="createQueueAddress">Queue-Address: </t:label><t:textfield t:id="createQueueAddress" value="createQueueAddress" validate="required" />
-		<t:label ignoreBody="false" for="createQueueDurable">Durable <t:checkbox t:id="createQueueDurable" /></t:label>
-		<t:submit value="Queue erstellen!" /> 
+		<t:label for="createQueueName">Queue-Name: </t:label><t:textfield t:id="createQueueName" value="createQueueName" validate="required" />
+		<t:label for="createQueueAddress">Queue-Address: </t:label><t:textfield t:id="createQueueAddress" value="createQueueAddress" validate="required" />
+		<t:label for="createQueueDurable"><t:checkbox t:id="createQueueDurable" /> Durable</t:label>
+		<t:submit class="btn btn-primary" value="Queue erstellen!" /> 
 	</t:form>
 </t:container>

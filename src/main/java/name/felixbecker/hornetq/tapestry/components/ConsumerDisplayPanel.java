@@ -1,7 +1,7 @@
 package name.felixbecker.hornetq.tapestry.components;
 
 import name.felixbecker.hornetq.services.HornetQConsumerService;
-import name.felixbecker.hornetq.services.SampleConsumer;
+import name.felixbecker.hornetq.services.MessageConsumer;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -12,5 +12,5 @@ public class ConsumerDisplayPanel {
 	HornetQConsumerService hornetQConsumerService;
 	
 	@Property
-	SampleConsumer consumer;
+	MessageConsumer consumer;
 }

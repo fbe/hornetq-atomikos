@@ -1,5 +1,7 @@
 package name.felixbecker.hornetq.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
 
 import name.felixbecker.hornetq.HornetQClientSessionFactory;
@@ -11,9 +13,9 @@ import org.hornetq.api.core.client.ClientMessage;
 import org.hornetq.api.core.client.ClientSession;
 import org.hornetq.api.core.client.MessageHandler;
 
-public class SampleConsumer implements MessageHandler {
+public class MessageConsumer implements MessageHandler {
 
-	private final Logger LOGGER = Logger.getLogger(SampleConsumer.class);
+	private final Logger LOGGER = Logger.getLogger(MessageConsumer.class);
 	
 	
 	private final String consumerName;
@@ -23,8 +25,20 @@ public class SampleConsumer implements MessageHandler {
 	
 	private AtomicLong messageCounter = new AtomicLong(0);
 	
-	public SampleConsumer(HornetQClientSessionFactory clientSessionFactory, String consumerName, String consumerQueue) {
+	volatile boolean logMessages;
+	volatile boolean saveMessages;
 	
+	private Collection<ClientMessage> messageBox = new ArrayList<ClientMessage>();
+	
+	public Collection<ClientMessage> getMessageBox(){
+		return messageBox;
+	}
+	
+	public MessageConsumer(HornetQClientSessionFactory clientSessionFactory, String consumerName, String consumerQueue, boolean logMessages, boolean saveMessages) {
+	
+		this.logMessages = logMessages;
+		this.saveMessages = saveMessages;
+		
 		this.consumerName = consumerName;
 		try {
 		
@@ -53,13 +67,21 @@ public class SampleConsumer implements MessageHandler {
 
 	@Override
 	public void onMessage(ClientMessage message) {
-		LOGGER.info("Consumer "+ consumerName + "here! message: " + message.getStringProperty("content"));
+		
+		if(logMessages){
+			LOGGER.info("Consumer "+ consumerName + "here! message: " + message.getStringProperty("content"));
+		}
+		
+		if(saveMessages){
+			messageBox.add(message);
+		}
+		
 		try {
 			message.acknowledge();
 			clientSession.commit();
 			messageCounter.incrementAndGet();
 		} catch (HornetQException e) {
-			e.printStackTrace();
+			LOGGER.error("exception receiving message!", e);
 		}
 	}
 

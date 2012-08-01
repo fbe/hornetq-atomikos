@@ -1,5 +1,8 @@
 package name.felixbecker.hornetq.tapestry.components;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Import;
@@ -25,6 +28,8 @@ public class MainLayout {
 		@Property
 		@Parameter(defaultPrefix = BindingConstants.LITERAL)
 		private Block sidebar;
-		
-		
+
+		public String getHostname() throws UnknownHostException {
+			return Inet4Address.getLocalHost().getCanonicalHostName();
+		}
 }

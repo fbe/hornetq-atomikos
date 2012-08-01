@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class HornetQConsumerServiceImpl implements HornetQConsumerService {
 
-	private Collection<SampleConsumer> consumers = new ArrayList<SampleConsumer>();
+	private Collection<MessageConsumer> consumers = new ArrayList<MessageConsumer>();
 	
 	@Autowired HornetQClientSessionFactory clientSessionFactory;
 	
 	@Override
-	public synchronized void createConsumer(String consumerName, String consumerQueue) {
-		consumers.add(new SampleConsumer(clientSessionFactory, consumerName, consumerQueue));
+	public synchronized void createConsumer(String consumerName, String consumerQueue, boolean logMessages, boolean saveMessages) {
+		consumers.add(new MessageConsumer(clientSessionFactory, consumerName, consumerQueue, logMessages, saveMessages));
 	}
 
 	@Override
-	public Collection<SampleConsumer> getConsumers() {
+	public Collection<MessageConsumer> getConsumers() {
 		return consumers;
 	}
 

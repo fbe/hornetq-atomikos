@@ -9,12 +9,15 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
     ">
 
+	<!-- Spring stuff -->
 	<context:component-scan base-package="name.felixbecker.hornetq" />
-
+	<tx:annotation-driven transaction-manager="JtaTransactionManager" />
+	
+	<!-- HornetQ InMemory Connector -->
 	<bean id="hornetQSessionFactory" class="name.felixbecker.hornetq.HornetQClientSessionFactory" destroy-method="destroy" />
 
-	<tx:annotation-driven transaction-manager="JtaTransactionManager" />
-
+	<!-- Atomikos / JTA stuff -->
+	
 	<bean id="AtomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
 		<!-- todo clarification required what this trigger does -->
 		<property name="forceShutdown" value="false" />
@@ -29,6 +32,8 @@
 		<property name="userTransaction" ref="AtomikosUserTransaction" />
 	</bean>
 
+	<!-- hibernate datasource and session factory -->
+	
 	<bean id="datasource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
 		init-method="init" destroy-method="close">
 		<property name="uniqueResourceName">
@@ -53,8 +58,7 @@
 		</property>
 	</bean>
 	
-	<bean id="hibernateSessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
 		<property name="jtaTransactionManager" ref="JtaTransactionManager" />
 		<property name="annotatedClasses">
